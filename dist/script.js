@@ -6,7 +6,7 @@ async function main() {
             title: "Soiree Tech & Innovation",
             description: "Conference sur les tendances IA et web avec networking.",
             date: new Date("2026-06-12T00:00:00.000Z"),
-            heure: "19:30",
+            duree: "1:30",
             lieu: "Palais des Congres",
             ville: "Lyon",
             prix_billet: 35,

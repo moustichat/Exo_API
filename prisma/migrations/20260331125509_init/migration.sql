@@ -4,7 +4,7 @@ CREATE TABLE "Event" (
     "title" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "date" DATETIME NOT NULL,
-    "heure" TEXT NOT NULL,
+    "duree" TEXT NOT NULL,
     "lieu" TEXT NOT NULL,
     "ville" TEXT NOT NULL,
     "prix_billet" INTEGER NOT NULL,

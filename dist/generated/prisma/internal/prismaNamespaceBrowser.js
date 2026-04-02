@@ -52,7 +52,7 @@ export const EventScalarFieldEnum = {
     title: 'title',
     description: 'description',
     date: 'date',
-    heure: 'heure',
+    duree: 'duree',
     lieu: 'lieu',
     ville: 'ville',
     prix_billet: 'prix_billet',

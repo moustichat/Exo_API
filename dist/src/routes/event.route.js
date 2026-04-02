@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getEvents, getEventById, createEvent } from "../controllers/events.controller";
+import { getEvents, getEventById, createEvent, deleteEvent, updateEvent } from "../controllers/events.controller";
 const router = Router();
 // GET /api/events
 router.get('/', getEvents);
@@ -10,8 +10,8 @@ router.get('/:id', getEventById);
 // POST /api/events
 router.post('/', createEvent);
 // PATCH /api/events/:id
-//router.patch('/:id', updateTodo)
+router.patch('/:id', updateEvent);
 // DELETE /api/events/:id
-//router.delete('/:id', deleteTodo)
+router.delete('/:id', deleteEvent);
 export default router;
 //# sourceMappingURL=event.route.js.map

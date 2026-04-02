@@ -29,7 +29,7 @@ export type EventMinAggregateOutputType = {
     title: string | null;
     description: string | null;
     date: Date | null;
-    heure: string | null;
+    duree: string | null;
     lieu: string | null;
     ville: string | null;
     prix_billet: number | null;
@@ -42,7 +42,7 @@ export type EventMaxAggregateOutputType = {
     title: string | null;
     description: string | null;
     date: Date | null;
-    heure: string | null;
+    duree: string | null;
     lieu: string | null;
     ville: string | null;
     prix_billet: number | null;
@@ -55,7 +55,7 @@ export type EventCountAggregateOutputType = {
     title: number;
     description: number;
     date: number;
-    heure: number;
+    duree: number;
     lieu: number;
     ville: number;
     prix_billet: number;
@@ -81,7 +81,7 @@ export type EventMinAggregateInputType = {
     title?: true;
     description?: true;
     date?: true;
-    heure?: true;
+    duree?: true;
     lieu?: true;
     ville?: true;
     prix_billet?: true;
@@ -94,7 +94,7 @@ export type EventMaxAggregateInputType = {
     title?: true;
     description?: true;
     date?: true;
-    heure?: true;
+    duree?: true;
     lieu?: true;
     ville?: true;
     prix_billet?: true;
@@ -107,7 +107,7 @@ export type EventCountAggregateInputType = {
     title?: true;
     description?: true;
     date?: true;
-    heure?: true;
+    duree?: true;
     lieu?: true;
     ville?: true;
     prix_billet?: true;
@@ -197,7 +197,7 @@ export type EventGroupByOutputType = {
     title: string;
     description: string;
     date: Date;
-    heure: string;
+    duree: string;
     lieu: string;
     ville: string;
     prix_billet: number;
@@ -221,7 +221,7 @@ export type EventWhereInput = {
     title?: Prisma.StringFilter<"Event"> | string;
     description?: Prisma.StringFilter<"Event"> | string;
     date?: Prisma.DateTimeFilter<"Event"> | Date | string;
-    heure?: Prisma.StringFilter<"Event"> | string;
+    duree?: Prisma.StringFilter<"Event"> | string;
     lieu?: Prisma.StringFilter<"Event"> | string;
     ville?: Prisma.StringFilter<"Event"> | string;
     prix_billet?: Prisma.IntFilter<"Event"> | number;
@@ -234,7 +234,7 @@ export type EventOrderByWithRelationInput = {
     title?: Prisma.SortOrder;
     description?: Prisma.SortOrder;
     date?: Prisma.SortOrder;
-    heure?: Prisma.SortOrder;
+    duree?: Prisma.SortOrder;
     lieu?: Prisma.SortOrder;
     ville?: Prisma.SortOrder;
     prix_billet?: Prisma.SortOrder;
@@ -250,7 +250,7 @@ export type EventWhereUniqueInput = Prisma.AtLeast<{
     title?: Prisma.StringFilter<"Event"> | string;
     description?: Prisma.StringFilter<"Event"> | string;
     date?: Prisma.DateTimeFilter<"Event"> | Date | string;
-    heure?: Prisma.StringFilter<"Event"> | string;
+    duree?: Prisma.StringFilter<"Event"> | string;
     lieu?: Prisma.StringFilter<"Event"> | string;
     ville?: Prisma.StringFilter<"Event"> | string;
     prix_billet?: Prisma.IntFilter<"Event"> | number;
@@ -263,7 +263,7 @@ export type EventOrderByWithAggregationInput = {
     title?: Prisma.SortOrder;
     description?: Prisma.SortOrder;
     date?: Prisma.SortOrder;
-    heure?: Prisma.SortOrder;
+    duree?: Prisma.SortOrder;
     lieu?: Prisma.SortOrder;
     ville?: Prisma.SortOrder;
     prix_billet?: Prisma.SortOrder;
@@ -284,7 +284,7 @@ export type EventScalarWhereWithAggregatesInput = {
     title?: Prisma.StringWithAggregatesFilter<"Event"> | string;
     description?: Prisma.StringWithAggregatesFilter<"Event"> | string;
     date?: Prisma.DateTimeWithAggregatesFilter<"Event"> | Date | string;
-    heure?: Prisma.StringWithAggregatesFilter<"Event"> | string;
+    duree?: Prisma.StringWithAggregatesFilter<"Event"> | string;
     lieu?: Prisma.StringWithAggregatesFilter<"Event"> | string;
     ville?: Prisma.StringWithAggregatesFilter<"Event"> | string;
     prix_billet?: Prisma.IntWithAggregatesFilter<"Event"> | number;
@@ -296,7 +296,7 @@ export type EventCreateInput = {
     title: string;
     description: string;
     date: Date | string;
-    heure: string;
+    duree: string;
     lieu: string;
     ville: string;
     prix_billet: number;
@@ -309,7 +309,7 @@ export type EventUncheckedCreateInput = {
     title: string;
     description: string;
     date: Date | string;
-    heure: string;
+    duree: string;
     lieu: string;
     ville: string;
     prix_billet: number;
@@ -321,7 +321,7 @@ export type EventUpdateInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
     date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    heure?: Prisma.StringFieldUpdateOperationsInput | string;
+    duree?: Prisma.StringFieldUpdateOperationsInput | string;
     lieu?: Prisma.StringFieldUpdateOperationsInput | string;
     ville?: Prisma.StringFieldUpdateOperationsInput | string;
     prix_billet?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -334,7 +334,7 @@ export type EventUncheckedUpdateInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
     date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    heure?: Prisma.StringFieldUpdateOperationsInput | string;
+    duree?: Prisma.StringFieldUpdateOperationsInput | string;
     lieu?: Prisma.StringFieldUpdateOperationsInput | string;
     ville?: Prisma.StringFieldUpdateOperationsInput | string;
     prix_billet?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -347,7 +347,7 @@ export type EventCreateManyInput = {
     title: string;
     description: string;
     date: Date | string;
-    heure: string;
+    duree: string;
     lieu: string;
     ville: string;
     prix_billet: number;
@@ -359,7 +359,7 @@ export type EventUpdateManyMutationInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
     date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    heure?: Prisma.StringFieldUpdateOperationsInput | string;
+    duree?: Prisma.StringFieldUpdateOperationsInput | string;
     lieu?: Prisma.StringFieldUpdateOperationsInput | string;
     ville?: Prisma.StringFieldUpdateOperationsInput | string;
     prix_billet?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -372,7 +372,7 @@ export type EventUncheckedUpdateManyInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
     date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    heure?: Prisma.StringFieldUpdateOperationsInput | string;
+    duree?: Prisma.StringFieldUpdateOperationsInput | string;
     lieu?: Prisma.StringFieldUpdateOperationsInput | string;
     ville?: Prisma.StringFieldUpdateOperationsInput | string;
     prix_billet?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -385,7 +385,7 @@ export type EventCountOrderByAggregateInput = {
     title?: Prisma.SortOrder;
     description?: Prisma.SortOrder;
     date?: Prisma.SortOrder;
-    heure?: Prisma.SortOrder;
+    duree?: Prisma.SortOrder;
     lieu?: Prisma.SortOrder;
     ville?: Prisma.SortOrder;
     prix_billet?: Prisma.SortOrder;
@@ -404,7 +404,7 @@ export type EventMaxOrderByAggregateInput = {
     title?: Prisma.SortOrder;
     description?: Prisma.SortOrder;
     date?: Prisma.SortOrder;
-    heure?: Prisma.SortOrder;
+    duree?: Prisma.SortOrder;
     lieu?: Prisma.SortOrder;
     ville?: Prisma.SortOrder;
     prix_billet?: Prisma.SortOrder;
@@ -417,7 +417,7 @@ export type EventMinOrderByAggregateInput = {
     title?: Prisma.SortOrder;
     description?: Prisma.SortOrder;
     date?: Prisma.SortOrder;
-    heure?: Prisma.SortOrder;
+    duree?: Prisma.SortOrder;
     lieu?: Prisma.SortOrder;
     ville?: Prisma.SortOrder;
     prix_billet?: Prisma.SortOrder;
@@ -456,7 +456,7 @@ export type EventSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
     title?: boolean;
     description?: boolean;
     date?: boolean;
-    heure?: boolean;
+    duree?: boolean;
     lieu?: boolean;
     ville?: boolean;
     prix_billet?: boolean;
@@ -469,7 +469,7 @@ export type EventSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
     title?: boolean;
     description?: boolean;
     date?: boolean;
-    heure?: boolean;
+    duree?: boolean;
     lieu?: boolean;
     ville?: boolean;
     prix_billet?: boolean;
@@ -482,7 +482,7 @@ export type EventSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
     title?: boolean;
     description?: boolean;
     date?: boolean;
-    heure?: boolean;
+    duree?: boolean;
     lieu?: boolean;
     ville?: boolean;
     prix_billet?: boolean;
@@ -495,7 +495,7 @@ export type EventSelectScalar = {
     title?: boolean;
     description?: boolean;
     date?: boolean;
-    heure?: boolean;
+    duree?: boolean;
     lieu?: boolean;
     ville?: boolean;
     prix_billet?: boolean;
@@ -503,7 +503,7 @@ export type EventSelectScalar = {
     categorie?: boolean;
     image_couverture?: boolean;
 };
-export type EventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "date" | "heure" | "lieu" | "ville" | "prix_billet" | "nombre_total_places" | "categorie" | "image_couverture", ExtArgs["result"]["event"]>;
+export type EventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "date" | "duree" | "lieu" | "ville" | "prix_billet" | "nombre_total_places" | "categorie" | "image_couverture", ExtArgs["result"]["event"]>;
 export type $EventPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     name: "Event";
     objects: {};
@@ -512,7 +512,7 @@ export type $EventPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
         title: string;
         description: string;
         date: Date;
-        heure: string;
+        duree: string;
         lieu: string;
         ville: string;
         prix_billet: number;
@@ -877,7 +877,7 @@ export interface EventFieldRefs {
     readonly title: Prisma.FieldRef<"Event", 'String'>;
     readonly description: Prisma.FieldRef<"Event", 'String'>;
     readonly date: Prisma.FieldRef<"Event", 'DateTime'>;
-    readonly heure: Prisma.FieldRef<"Event", 'String'>;
+    readonly duree: Prisma.FieldRef<"Event", 'String'>;
     readonly lieu: Prisma.FieldRef<"Event", 'String'>;
     readonly ville: Prisma.FieldRef<"Event", 'String'>;
     readonly prix_billet: Prisma.FieldRef<"Event", 'Int'>;

@@ -2,7 +2,7 @@ export interface Event {
     title: string,
     description: string,
     date: Date,
-    heure: string,
+    duree: string,
     lieu: string,
     ville: string,
     prix_billet: number,

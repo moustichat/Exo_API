@@ -6,7 +6,7 @@ CREATE TABLE "new_Event" (
     "title" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "date" DATETIME NOT NULL,
-    "heure" TEXT NOT NULL,
+    "duree" TEXT NOT NULL,
     "lieu" TEXT NOT NULL,
     "ville" TEXT NOT NULL,
     "prix_billet" INTEGER NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE "new_Event" (
     "categorie" TEXT NOT NULL,
     "image_couverture" INTEGER
 );
-INSERT INTO "new_Event" ("categorie", "date", "description", "heure", "id", "image_couverture", "lieu", "nombre_total_places", "prix_billet", "title", "ville") SELECT "categorie", "date", "description", "heure", "id", "image_couverture", "lieu", "nombre_total_places", "prix_billet", "title", "ville" FROM "Event";
+INSERT INTO "new_Event" ("categorie", "date", "description", "duree", "id", "image_couverture", "lieu", "nombre_total_places", "prix_billet", "title", "ville") SELECT "categorie", "date", "description", "duree", "id", "image_couverture", "lieu", "nombre_total_places", "prix_billet", "title", "ville" FROM "Event";
 DROP TABLE "Event";
 ALTER TABLE "new_Event" RENAME TO "Event";
 PRAGMA foreign_keys=ON;

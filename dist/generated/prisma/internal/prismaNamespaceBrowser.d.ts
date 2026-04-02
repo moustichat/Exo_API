@@ -38,7 +38,7 @@ export declare const EventScalarFieldEnum: {
     readonly title: "title";
     readonly description: "description";
     readonly date: "date";
-    readonly heure: "heure";
+    readonly duree: "duree";
     readonly lieu: "lieu";
     readonly ville: "ville";
     readonly prix_billet: "prix_billet";

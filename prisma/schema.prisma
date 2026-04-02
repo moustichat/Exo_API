@@ -17,7 +17,7 @@ model Event {
     title String 
     description String
     date DateTime
-    heure String
+    duree String
     lieu String
     ville String
     prix_billet Int
@@ -25,3 +25,7 @@ model Event {
     categorie String
     image_couverture Int?
 }
+
+
+// Run `npx prisma migrate dev --name <name>` to create the database and apply the schema changes
+// Run `npx prisma generate` to generate the Prisma Client based on this schema
