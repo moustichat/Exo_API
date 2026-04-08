@@ -39,7 +39,10 @@ export const JsonNull = runtime.JsonNull;
  */
 export const AnyNull = runtime.AnyNull;
 export const ModelName = {
-    Event: 'Event'
+    Event: 'Event',
+    User: 'User',
+    Ticket: 'Ticket',
+    RefreshToken: 'RefreshToken'
 };
 /*
  * Enums
@@ -53,12 +56,41 @@ export const EventScalarFieldEnum = {
     description: 'description',
     date: 'date',
     duree: 'duree',
-    lieu: 'lieu',
-    ville: 'ville',
-    prix_billet: 'prix_billet',
-    nombre_total_places: 'nombre_total_places',
-    categorie: 'categorie',
-    image_couverture: 'image_couverture'
+    location: 'location',
+    city: 'city',
+    price: 'price',
+    total_seats: 'total_seats',
+    seats_available: 'seats_available',
+    category: 'category',
+    organizerId: 'organizerId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    picture: 'picture'
+};
+export const UserScalarFieldEnum = {
+    id: 'id',
+    name: 'name',
+    email: 'email',
+    passwordHash: 'passwordHash',
+    role: 'role',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const TicketScalarFieldEnum = {
+    id: 'id',
+    qrCode: 'qrCode',
+    status: 'status',
+    userId: 'userId',
+    eventId: 'eventId',
+    purchaseDate: 'purchaseDate'
+};
+export const RefreshTokenScalarFieldEnum = {
+    id: 'id',
+    tokenHash: 'tokenHash',
+    userId: 'userId',
+    expiresAt: 'expiresAt',
+    revokedAt: 'revokedAt',
+    createdAt: 'createdAt'
 };
 export const SortOrder = {
     asc: 'asc',

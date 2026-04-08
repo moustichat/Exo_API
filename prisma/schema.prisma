@@ -12,20 +12,87 @@ datasource db {
   provider = "sqlite"
 }
 
+
 model Event {
     id Int @id @default(autoincrement()) 
     title String 
     description String
     date DateTime
     duree String
-    lieu String
-    ville String
-    prix_billet Int
-    nombre_total_places Int
-    categorie String
-    image_couverture Int?
+    location String
+    city String
+    price Int
+    total_seats Int
+    seats_available Int
+    category String
+    organizerId String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    picture Int?
+    
+    tickets Ticket[] @relation("EventTickets")
+    organizer User @relation("UserEvents", fields: [organizerId], references: [id])
 }
 
+
+model User {
+    id String @id @default(cuid())
+    name String
+    email String @unique
+    passwordHash String
+    role Role @default(USER)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    refreshTokens RefreshToken[]
+    events Event[] @relation("UserEvents")
+    tickets Ticket[] @relation("UserTickets")
+}
+
+
+model Ticket {
+    id Int @id @default(autoincrement())
+    qrCode String @unique
+    status TicketStatus
+    userId String
+    eventId Int
+    purchaseDate DateTime @default(now())
+    
+    user User @relation("UserTickets", fields: [userId], references: [id])
+    event Event @relation("EventTickets", fields: [eventId], references: [id])
+}
+
+
+model RefreshToken {
+    id String @id @default(cuid())
+    tokenHash String @unique
+    userId String
+    expiresAt DateTime
+    revokedAt DateTime?
+    createdAt DateTime @default(now())
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+    @@index([userId])
+}
+
+enum Role {
+  USER
+  ORGANIZER
+  ADMIN
+}
+
+enum Category {
+  Concert
+  Conference
+  Festival
+  Sport
+  Theatre
+  Other
+}
+
+enum TicketStatus {
+  VALID
+  USED
+  CANCELLED
+}
 
 // Run `npx prisma migrate dev --name <name>` to create the database and apply the schema changes
 // Run `npx prisma generate` to generate the Prisma Client based on this schema

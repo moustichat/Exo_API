@@ -7,6 +7,22 @@
 *
 * 🟢 You can import this file directly.
 */
-// This file is empty because there are no enums in the schema.
-export {};
+export const Role = {
+    USER: 'USER',
+    ORGANIZER: 'ORGANIZER',
+    ADMIN: 'ADMIN'
+};
+export const Category = {
+    Concert: 'Concert',
+    Conference: 'Conference',
+    Festival: 'Festival',
+    Sport: 'Sport',
+    Theatre: 'Theatre',
+    Other: 'Other'
+};
+export const TicketStatus = {
+    VALID: 'VALID',
+    USED: 'USED',
+    CANCELLED: 'CANCELLED'
+};
 //# sourceMappingURL=enums.js.map

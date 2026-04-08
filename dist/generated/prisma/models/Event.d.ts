@@ -14,15 +14,17 @@ export type AggregateEvent = {
 };
 export type EventAvgAggregateOutputType = {
     id: number | null;
-    prix_billet: number | null;
-    nombre_total_places: number | null;
-    image_couverture: number | null;
+    price: number | null;
+    total_seats: number | null;
+    seats_available: number | null;
+    picture: number | null;
 };
 export type EventSumAggregateOutputType = {
     id: number | null;
-    prix_billet: number | null;
-    nombre_total_places: number | null;
-    image_couverture: number | null;
+    price: number | null;
+    total_seats: number | null;
+    seats_available: number | null;
+    picture: number | null;
 };
 export type EventMinAggregateOutputType = {
     id: number | null;
@@ -30,12 +32,16 @@ export type EventMinAggregateOutputType = {
     description: string | null;
     date: Date | null;
     duree: string | null;
-    lieu: string | null;
-    ville: string | null;
-    prix_billet: number | null;
-    nombre_total_places: number | null;
-    categorie: string | null;
-    image_couverture: number | null;
+    location: string | null;
+    city: string | null;
+    price: number | null;
+    total_seats: number | null;
+    seats_available: number | null;
+    category: string | null;
+    organizerId: string | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+    picture: number | null;
 };
 export type EventMaxAggregateOutputType = {
     id: number | null;
@@ -43,12 +49,16 @@ export type EventMaxAggregateOutputType = {
     description: string | null;
     date: Date | null;
     duree: string | null;
-    lieu: string | null;
-    ville: string | null;
-    prix_billet: number | null;
-    nombre_total_places: number | null;
-    categorie: string | null;
-    image_couverture: number | null;
+    location: string | null;
+    city: string | null;
+    price: number | null;
+    total_seats: number | null;
+    seats_available: number | null;
+    category: string | null;
+    organizerId: string | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+    picture: number | null;
 };
 export type EventCountAggregateOutputType = {
     id: number;
@@ -56,25 +66,31 @@ export type EventCountAggregateOutputType = {
     description: number;
     date: number;
     duree: number;
-    lieu: number;
-    ville: number;
-    prix_billet: number;
-    nombre_total_places: number;
-    categorie: number;
-    image_couverture: number;
+    location: number;
+    city: number;
+    price: number;
+    total_seats: number;
+    seats_available: number;
+    category: number;
+    organizerId: number;
+    createdAt: number;
+    updatedAt: number;
+    picture: number;
     _all: number;
 };
 export type EventAvgAggregateInputType = {
     id?: true;
-    prix_billet?: true;
-    nombre_total_places?: true;
-    image_couverture?: true;
+    price?: true;
+    total_seats?: true;
+    seats_available?: true;
+    picture?: true;
 };
 export type EventSumAggregateInputType = {
     id?: true;
-    prix_billet?: true;
-    nombre_total_places?: true;
-    image_couverture?: true;
+    price?: true;
+    total_seats?: true;
+    seats_available?: true;
+    picture?: true;
 };
 export type EventMinAggregateInputType = {
     id?: true;
@@ -82,12 +98,16 @@ export type EventMinAggregateInputType = {
     description?: true;
     date?: true;
     duree?: true;
-    lieu?: true;
-    ville?: true;
-    prix_billet?: true;
-    nombre_total_places?: true;
-    categorie?: true;
-    image_couverture?: true;
+    location?: true;
+    city?: true;
+    price?: true;
+    total_seats?: true;
+    seats_available?: true;
+    category?: true;
+    organizerId?: true;
+    createdAt?: true;
+    updatedAt?: true;
+    picture?: true;
 };
 export type EventMaxAggregateInputType = {
     id?: true;
@@ -95,12 +115,16 @@ export type EventMaxAggregateInputType = {
     description?: true;
     date?: true;
     duree?: true;
-    lieu?: true;
-    ville?: true;
-    prix_billet?: true;
-    nombre_total_places?: true;
-    categorie?: true;
-    image_couverture?: true;
+    location?: true;
+    city?: true;
+    price?: true;
+    total_seats?: true;
+    seats_available?: true;
+    category?: true;
+    organizerId?: true;
+    createdAt?: true;
+    updatedAt?: true;
+    picture?: true;
 };
 export type EventCountAggregateInputType = {
     id?: true;
@@ -108,12 +132,16 @@ export type EventCountAggregateInputType = {
     description?: true;
     date?: true;
     duree?: true;
-    lieu?: true;
-    ville?: true;
-    prix_billet?: true;
-    nombre_total_places?: true;
-    categorie?: true;
-    image_couverture?: true;
+    location?: true;
+    city?: true;
+    price?: true;
+    total_seats?: true;
+    seats_available?: true;
+    category?: true;
+    organizerId?: true;
+    createdAt?: true;
+    updatedAt?: true;
+    picture?: true;
     _all?: true;
 };
 export type EventAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -198,12 +226,16 @@ export type EventGroupByOutputType = {
     description: string;
     date: Date;
     duree: string;
-    lieu: string;
-    ville: string;
-    prix_billet: number;
-    nombre_total_places: number;
-    categorie: string;
-    image_couverture: number | null;
+    location: string;
+    city: string;
+    price: number;
+    total_seats: number;
+    seats_available: number;
+    category: string;
+    organizerId: string;
+    createdAt: Date;
+    updatedAt: Date;
+    picture: number | null;
     _count: EventCountAggregateOutputType | null;
     _avg: EventAvgAggregateOutputType | null;
     _sum: EventSumAggregateOutputType | null;
@@ -222,12 +254,18 @@ export type EventWhereInput = {
     description?: Prisma.StringFilter<"Event"> | string;
     date?: Prisma.DateTimeFilter<"Event"> | Date | string;
     duree?: Prisma.StringFilter<"Event"> | string;
-    lieu?: Prisma.StringFilter<"Event"> | string;
-    ville?: Prisma.StringFilter<"Event"> | string;
-    prix_billet?: Prisma.IntFilter<"Event"> | number;
-    nombre_total_places?: Prisma.IntFilter<"Event"> | number;
-    categorie?: Prisma.StringFilter<"Event"> | string;
-    image_couverture?: Prisma.IntNullableFilter<"Event"> | number | null;
+    location?: Prisma.StringFilter<"Event"> | string;
+    city?: Prisma.StringFilter<"Event"> | string;
+    price?: Prisma.IntFilter<"Event"> | number;
+    total_seats?: Prisma.IntFilter<"Event"> | number;
+    seats_available?: Prisma.IntFilter<"Event"> | number;
+    category?: Prisma.StringFilter<"Event"> | string;
+    organizerId?: Prisma.StringFilter<"Event"> | string;
+    createdAt?: Prisma.DateTimeFilter<"Event"> | Date | string;
+    updatedAt?: Prisma.DateTimeFilter<"Event"> | Date | string;
+    picture?: Prisma.IntNullableFilter<"Event"> | number | null;
+    tickets?: Prisma.TicketListRelationFilter;
+    organizer?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>;
 };
 export type EventOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
@@ -235,12 +273,18 @@ export type EventOrderByWithRelationInput = {
     description?: Prisma.SortOrder;
     date?: Prisma.SortOrder;
     duree?: Prisma.SortOrder;
-    lieu?: Prisma.SortOrder;
-    ville?: Prisma.SortOrder;
-    prix_billet?: Prisma.SortOrder;
-    nombre_total_places?: Prisma.SortOrder;
-    categorie?: Prisma.SortOrder;
-    image_couverture?: Prisma.SortOrderInput | Prisma.SortOrder;
+    location?: Prisma.SortOrder;
+    city?: Prisma.SortOrder;
+    price?: Prisma.SortOrder;
+    total_seats?: Prisma.SortOrder;
+    seats_available?: Prisma.SortOrder;
+    category?: Prisma.SortOrder;
+    organizerId?: Prisma.SortOrder;
+    createdAt?: Prisma.SortOrder;
+    updatedAt?: Prisma.SortOrder;
+    picture?: Prisma.SortOrderInput | Prisma.SortOrder;
+    tickets?: Prisma.TicketOrderByRelationAggregateInput;
+    organizer?: Prisma.UserOrderByWithRelationInput;
 };
 export type EventWhereUniqueInput = Prisma.AtLeast<{
     id?: number;
@@ -251,12 +295,18 @@ export type EventWhereUniqueInput = Prisma.AtLeast<{
     description?: Prisma.StringFilter<"Event"> | string;
     date?: Prisma.DateTimeFilter<"Event"> | Date | string;
     duree?: Prisma.StringFilter<"Event"> | string;
-    lieu?: Prisma.StringFilter<"Event"> | string;
-    ville?: Prisma.StringFilter<"Event"> | string;
-    prix_billet?: Prisma.IntFilter<"Event"> | number;
-    nombre_total_places?: Prisma.IntFilter<"Event"> | number;
-    categorie?: Prisma.StringFilter<"Event"> | string;
-    image_couverture?: Prisma.IntNullableFilter<"Event"> | number | null;
+    location?: Prisma.StringFilter<"Event"> | string;
+    city?: Prisma.StringFilter<"Event"> | string;
+    price?: Prisma.IntFilter<"Event"> | number;
+    total_seats?: Prisma.IntFilter<"Event"> | number;
+    seats_available?: Prisma.IntFilter<"Event"> | number;
+    category?: Prisma.StringFilter<"Event"> | string;
+    organizerId?: Prisma.StringFilter<"Event"> | string;
+    createdAt?: Prisma.DateTimeFilter<"Event"> | Date | string;
+    updatedAt?: Prisma.DateTimeFilter<"Event"> | Date | string;
+    picture?: Prisma.IntNullableFilter<"Event"> | number | null;
+    tickets?: Prisma.TicketListRelationFilter;
+    organizer?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>;
 }, "id">;
 export type EventOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
@@ -264,12 +314,16 @@ export type EventOrderByWithAggregationInput = {
     description?: Prisma.SortOrder;
     date?: Prisma.SortOrder;
     duree?: Prisma.SortOrder;
-    lieu?: Prisma.SortOrder;
-    ville?: Prisma.SortOrder;
-    prix_billet?: Prisma.SortOrder;
-    nombre_total_places?: Prisma.SortOrder;
-    categorie?: Prisma.SortOrder;
-    image_couverture?: Prisma.SortOrderInput | Prisma.SortOrder;
+    location?: Prisma.SortOrder;
+    city?: Prisma.SortOrder;
+    price?: Prisma.SortOrder;
+    total_seats?: Prisma.SortOrder;
+    seats_available?: Prisma.SortOrder;
+    category?: Prisma.SortOrder;
+    organizerId?: Prisma.SortOrder;
+    createdAt?: Prisma.SortOrder;
+    updatedAt?: Prisma.SortOrder;
+    picture?: Prisma.SortOrderInput | Prisma.SortOrder;
     _count?: Prisma.EventCountOrderByAggregateInput;
     _avg?: Prisma.EventAvgOrderByAggregateInput;
     _max?: Prisma.EventMaxOrderByAggregateInput;
@@ -285,24 +339,33 @@ export type EventScalarWhereWithAggregatesInput = {
     description?: Prisma.StringWithAggregatesFilter<"Event"> | string;
     date?: Prisma.DateTimeWithAggregatesFilter<"Event"> | Date | string;
     duree?: Prisma.StringWithAggregatesFilter<"Event"> | string;
-    lieu?: Prisma.StringWithAggregatesFilter<"Event"> | string;
-    ville?: Prisma.StringWithAggregatesFilter<"Event"> | string;
-    prix_billet?: Prisma.IntWithAggregatesFilter<"Event"> | number;
-    nombre_total_places?: Prisma.IntWithAggregatesFilter<"Event"> | number;
-    categorie?: Prisma.StringWithAggregatesFilter<"Event"> | string;
-    image_couverture?: Prisma.IntNullableWithAggregatesFilter<"Event"> | number | null;
+    location?: Prisma.StringWithAggregatesFilter<"Event"> | string;
+    city?: Prisma.StringWithAggregatesFilter<"Event"> | string;
+    price?: Prisma.IntWithAggregatesFilter<"Event"> | number;
+    total_seats?: Prisma.IntWithAggregatesFilter<"Event"> | number;
+    seats_available?: Prisma.IntWithAggregatesFilter<"Event"> | number;
+    category?: Prisma.StringWithAggregatesFilter<"Event"> | string;
+    organizerId?: Prisma.StringWithAggregatesFilter<"Event"> | string;
+    createdAt?: Prisma.DateTimeWithAggregatesFilter<"Event"> | Date | string;
+    updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Event"> | Date | string;
+    picture?: Prisma.IntNullableWithAggregatesFilter<"Event"> | number | null;
 };
 export type EventCreateInput = {
     title: string;
     description: string;
     date: Date | string;
     duree: string;
-    lieu: string;
-    ville: string;
-    prix_billet: number;
-    nombre_total_places: number;
-    categorie: string;
-    image_couverture?: number | null;
+    location: string;
+    city: string;
+    price: number;
+    total_seats: number;
+    seats_available: number;
+    category: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    picture?: number | null;
+    tickets?: Prisma.TicketCreateNestedManyWithoutEventInput;
+    organizer: Prisma.UserCreateNestedOneWithoutEventsInput;
 };
 export type EventUncheckedCreateInput = {
     id?: number;
@@ -310,24 +373,34 @@ export type EventUncheckedCreateInput = {
     description: string;
     date: Date | string;
     duree: string;
-    lieu: string;
-    ville: string;
-    prix_billet: number;
-    nombre_total_places: number;
-    categorie: string;
-    image_couverture?: number | null;
+    location: string;
+    city: string;
+    price: number;
+    total_seats: number;
+    seats_available: number;
+    category: string;
+    organizerId: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    picture?: number | null;
+    tickets?: Prisma.TicketUncheckedCreateNestedManyWithoutEventInput;
 };
 export type EventUpdateInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
     date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     duree?: Prisma.StringFieldUpdateOperationsInput | string;
-    lieu?: Prisma.StringFieldUpdateOperationsInput | string;
-    ville?: Prisma.StringFieldUpdateOperationsInput | string;
-    prix_billet?: Prisma.IntFieldUpdateOperationsInput | number;
-    nombre_total_places?: Prisma.IntFieldUpdateOperationsInput | number;
-    categorie?: Prisma.StringFieldUpdateOperationsInput | string;
-    image_couverture?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    location?: Prisma.StringFieldUpdateOperationsInput | string;
+    city?: Prisma.StringFieldUpdateOperationsInput | string;
+    price?: Prisma.IntFieldUpdateOperationsInput | number;
+    total_seats?: Prisma.IntFieldUpdateOperationsInput | number;
+    seats_available?: Prisma.IntFieldUpdateOperationsInput | number;
+    category?: Prisma.StringFieldUpdateOperationsInput | string;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    picture?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    tickets?: Prisma.TicketUpdateManyWithoutEventNestedInput;
+    organizer?: Prisma.UserUpdateOneRequiredWithoutEventsNestedInput;
 };
 export type EventUncheckedUpdateInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -335,12 +408,17 @@ export type EventUncheckedUpdateInput = {
     description?: Prisma.StringFieldUpdateOperationsInput | string;
     date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     duree?: Prisma.StringFieldUpdateOperationsInput | string;
-    lieu?: Prisma.StringFieldUpdateOperationsInput | string;
-    ville?: Prisma.StringFieldUpdateOperationsInput | string;
-    prix_billet?: Prisma.IntFieldUpdateOperationsInput | number;
-    nombre_total_places?: Prisma.IntFieldUpdateOperationsInput | number;
-    categorie?: Prisma.StringFieldUpdateOperationsInput | string;
-    image_couverture?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    location?: Prisma.StringFieldUpdateOperationsInput | string;
+    city?: Prisma.StringFieldUpdateOperationsInput | string;
+    price?: Prisma.IntFieldUpdateOperationsInput | number;
+    total_seats?: Prisma.IntFieldUpdateOperationsInput | number;
+    seats_available?: Prisma.IntFieldUpdateOperationsInput | number;
+    category?: Prisma.StringFieldUpdateOperationsInput | string;
+    organizerId?: Prisma.StringFieldUpdateOperationsInput | string;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    picture?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    tickets?: Prisma.TicketUncheckedUpdateManyWithoutEventNestedInput;
 };
 export type EventCreateManyInput = {
     id?: number;
@@ -348,24 +426,31 @@ export type EventCreateManyInput = {
     description: string;
     date: Date | string;
     duree: string;
-    lieu: string;
-    ville: string;
-    prix_billet: number;
-    nombre_total_places: number;
-    categorie: string;
-    image_couverture?: number | null;
+    location: string;
+    city: string;
+    price: number;
+    total_seats: number;
+    seats_available: number;
+    category: string;
+    organizerId: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    picture?: number | null;
 };
 export type EventUpdateManyMutationInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
     date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     duree?: Prisma.StringFieldUpdateOperationsInput | string;
-    lieu?: Prisma.StringFieldUpdateOperationsInput | string;
-    ville?: Prisma.StringFieldUpdateOperationsInput | string;
-    prix_billet?: Prisma.IntFieldUpdateOperationsInput | number;
-    nombre_total_places?: Prisma.IntFieldUpdateOperationsInput | number;
-    categorie?: Prisma.StringFieldUpdateOperationsInput | string;
-    image_couverture?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    location?: Prisma.StringFieldUpdateOperationsInput | string;
+    city?: Prisma.StringFieldUpdateOperationsInput | string;
+    price?: Prisma.IntFieldUpdateOperationsInput | number;
+    total_seats?: Prisma.IntFieldUpdateOperationsInput | number;
+    seats_available?: Prisma.IntFieldUpdateOperationsInput | number;
+    category?: Prisma.StringFieldUpdateOperationsInput | string;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    picture?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
 };
 export type EventUncheckedUpdateManyInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -373,12 +458,16 @@ export type EventUncheckedUpdateManyInput = {
     description?: Prisma.StringFieldUpdateOperationsInput | string;
     date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     duree?: Prisma.StringFieldUpdateOperationsInput | string;
-    lieu?: Prisma.StringFieldUpdateOperationsInput | string;
-    ville?: Prisma.StringFieldUpdateOperationsInput | string;
-    prix_billet?: Prisma.IntFieldUpdateOperationsInput | number;
-    nombre_total_places?: Prisma.IntFieldUpdateOperationsInput | number;
-    categorie?: Prisma.StringFieldUpdateOperationsInput | string;
-    image_couverture?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    location?: Prisma.StringFieldUpdateOperationsInput | string;
+    city?: Prisma.StringFieldUpdateOperationsInput | string;
+    price?: Prisma.IntFieldUpdateOperationsInput | number;
+    total_seats?: Prisma.IntFieldUpdateOperationsInput | number;
+    seats_available?: Prisma.IntFieldUpdateOperationsInput | number;
+    category?: Prisma.StringFieldUpdateOperationsInput | string;
+    organizerId?: Prisma.StringFieldUpdateOperationsInput | string;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    picture?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
 };
 export type EventCountOrderByAggregateInput = {
     id?: Prisma.SortOrder;
@@ -386,18 +475,23 @@ export type EventCountOrderByAggregateInput = {
     description?: Prisma.SortOrder;
     date?: Prisma.SortOrder;
     duree?: Prisma.SortOrder;
-    lieu?: Prisma.SortOrder;
-    ville?: Prisma.SortOrder;
-    prix_billet?: Prisma.SortOrder;
-    nombre_total_places?: Prisma.SortOrder;
-    categorie?: Prisma.SortOrder;
-    image_couverture?: Prisma.SortOrder;
+    location?: Prisma.SortOrder;
+    city?: Prisma.SortOrder;
+    price?: Prisma.SortOrder;
+    total_seats?: Prisma.SortOrder;
+    seats_available?: Prisma.SortOrder;
+    category?: Prisma.SortOrder;
+    organizerId?: Prisma.SortOrder;
+    createdAt?: Prisma.SortOrder;
+    updatedAt?: Prisma.SortOrder;
+    picture?: Prisma.SortOrder;
 };
 export type EventAvgOrderByAggregateInput = {
     id?: Prisma.SortOrder;
-    prix_billet?: Prisma.SortOrder;
-    nombre_total_places?: Prisma.SortOrder;
-    image_couverture?: Prisma.SortOrder;
+    price?: Prisma.SortOrder;
+    total_seats?: Prisma.SortOrder;
+    seats_available?: Prisma.SortOrder;
+    picture?: Prisma.SortOrder;
 };
 export type EventMaxOrderByAggregateInput = {
     id?: Prisma.SortOrder;
@@ -405,12 +499,16 @@ export type EventMaxOrderByAggregateInput = {
     description?: Prisma.SortOrder;
     date?: Prisma.SortOrder;
     duree?: Prisma.SortOrder;
-    lieu?: Prisma.SortOrder;
-    ville?: Prisma.SortOrder;
-    prix_billet?: Prisma.SortOrder;
-    nombre_total_places?: Prisma.SortOrder;
-    categorie?: Prisma.SortOrder;
-    image_couverture?: Prisma.SortOrder;
+    location?: Prisma.SortOrder;
+    city?: Prisma.SortOrder;
+    price?: Prisma.SortOrder;
+    total_seats?: Prisma.SortOrder;
+    seats_available?: Prisma.SortOrder;
+    category?: Prisma.SortOrder;
+    organizerId?: Prisma.SortOrder;
+    createdAt?: Prisma.SortOrder;
+    updatedAt?: Prisma.SortOrder;
+    picture?: Prisma.SortOrder;
 };
 export type EventMinOrderByAggregateInput = {
     id?: Prisma.SortOrder;
@@ -418,18 +516,35 @@ export type EventMinOrderByAggregateInput = {
     description?: Prisma.SortOrder;
     date?: Prisma.SortOrder;
     duree?: Prisma.SortOrder;
-    lieu?: Prisma.SortOrder;
-    ville?: Prisma.SortOrder;
-    prix_billet?: Prisma.SortOrder;
-    nombre_total_places?: Prisma.SortOrder;
-    categorie?: Prisma.SortOrder;
-    image_couverture?: Prisma.SortOrder;
+    location?: Prisma.SortOrder;
+    city?: Prisma.SortOrder;
+    price?: Prisma.SortOrder;
+    total_seats?: Prisma.SortOrder;
+    seats_available?: Prisma.SortOrder;
+    category?: Prisma.SortOrder;
+    organizerId?: Prisma.SortOrder;
+    createdAt?: Prisma.SortOrder;
+    updatedAt?: Prisma.SortOrder;
+    picture?: Prisma.SortOrder;
 };
 export type EventSumOrderByAggregateInput = {
     id?: Prisma.SortOrder;
-    prix_billet?: Prisma.SortOrder;
-    nombre_total_places?: Prisma.SortOrder;
-    image_couverture?: Prisma.SortOrder;
+    price?: Prisma.SortOrder;
+    total_seats?: Prisma.SortOrder;
+    seats_available?: Prisma.SortOrder;
+    picture?: Prisma.SortOrder;
+};
+export type EventListRelationFilter = {
+    every?: Prisma.EventWhereInput;
+    some?: Prisma.EventWhereInput;
+    none?: Prisma.EventWhereInput;
+};
+export type EventOrderByRelationAggregateInput = {
+    _count?: Prisma.SortOrder;
+};
+export type EventScalarRelationFilter = {
+    is?: Prisma.EventWhereInput;
+    isNot?: Prisma.EventWhereInput;
 };
 export type StringFieldUpdateOperationsInput = {
     set?: string;
@@ -451,18 +566,316 @@ export type NullableIntFieldUpdateOperationsInput = {
     multiply?: number;
     divide?: number;
 };
+export type EventCreateNestedManyWithoutOrganizerInput = {
+    create?: Prisma.XOR<Prisma.EventCreateWithoutOrganizerInput, Prisma.EventUncheckedCreateWithoutOrganizerInput> | Prisma.EventCreateWithoutOrganizerInput[] | Prisma.EventUncheckedCreateWithoutOrganizerInput[];
+    connectOrCreate?: Prisma.EventCreateOrConnectWithoutOrganizerInput | Prisma.EventCreateOrConnectWithoutOrganizerInput[];
+    createMany?: Prisma.EventCreateManyOrganizerInputEnvelope;
+    connect?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[];
+};
+export type EventUncheckedCreateNestedManyWithoutOrganizerInput = {
+    create?: Prisma.XOR<Prisma.EventCreateWithoutOrganizerInput, Prisma.EventUncheckedCreateWithoutOrganizerInput> | Prisma.EventCreateWithoutOrganizerInput[] | Prisma.EventUncheckedCreateWithoutOrganizerInput[];
+    connectOrCreate?: Prisma.EventCreateOrConnectWithoutOrganizerInput | Prisma.EventCreateOrConnectWithoutOrganizerInput[];
+    createMany?: Prisma.EventCreateManyOrganizerInputEnvelope;
+    connect?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[];
+};
+export type EventUpdateManyWithoutOrganizerNestedInput = {
+    create?: Prisma.XOR<Prisma.EventCreateWithoutOrganizerInput, Prisma.EventUncheckedCreateWithoutOrganizerInput> | Prisma.EventCreateWithoutOrganizerInput[] | Prisma.EventUncheckedCreateWithoutOrganizerInput[];
+    connectOrCreate?: Prisma.EventCreateOrConnectWithoutOrganizerInput | Prisma.EventCreateOrConnectWithoutOrganizerInput[];
+    upsert?: Prisma.EventUpsertWithWhereUniqueWithoutOrganizerInput | Prisma.EventUpsertWithWhereUniqueWithoutOrganizerInput[];
+    createMany?: Prisma.EventCreateManyOrganizerInputEnvelope;
+    set?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[];
+    disconnect?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[];
+    delete?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[];
+    connect?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[];
+    update?: Prisma.EventUpdateWithWhereUniqueWithoutOrganizerInput | Prisma.EventUpdateWithWhereUniqueWithoutOrganizerInput[];
+    updateMany?: Prisma.EventUpdateManyWithWhereWithoutOrganizerInput | Prisma.EventUpdateManyWithWhereWithoutOrganizerInput[];
+    deleteMany?: Prisma.EventScalarWhereInput | Prisma.EventScalarWhereInput[];
+};
+export type EventUncheckedUpdateManyWithoutOrganizerNestedInput = {
+    create?: Prisma.XOR<Prisma.EventCreateWithoutOrganizerInput, Prisma.EventUncheckedCreateWithoutOrganizerInput> | Prisma.EventCreateWithoutOrganizerInput[] | Prisma.EventUncheckedCreateWithoutOrganizerInput[];
+    connectOrCreate?: Prisma.EventCreateOrConnectWithoutOrganizerInput | Prisma.EventCreateOrConnectWithoutOrganizerInput[];
+    upsert?: Prisma.EventUpsertWithWhereUniqueWithoutOrganizerInput | Prisma.EventUpsertWithWhereUniqueWithoutOrganizerInput[];
+    createMany?: Prisma.EventCreateManyOrganizerInputEnvelope;
+    set?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[];
+    disconnect?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[];
+    delete?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[];
+    connect?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[];
+    update?: Prisma.EventUpdateWithWhereUniqueWithoutOrganizerInput | Prisma.EventUpdateWithWhereUniqueWithoutOrganizerInput[];
+    updateMany?: Prisma.EventUpdateManyWithWhereWithoutOrganizerInput | Prisma.EventUpdateManyWithWhereWithoutOrganizerInput[];
+    deleteMany?: Prisma.EventScalarWhereInput | Prisma.EventScalarWhereInput[];
+};
+export type EventCreateNestedOneWithoutTicketsInput = {
+    create?: Prisma.XOR<Prisma.EventCreateWithoutTicketsInput, Prisma.EventUncheckedCreateWithoutTicketsInput>;
+    connectOrCreate?: Prisma.EventCreateOrConnectWithoutTicketsInput;
+    connect?: Prisma.EventWhereUniqueInput;
+};
+export type EventUpdateOneRequiredWithoutTicketsNestedInput = {
+    create?: Prisma.XOR<Prisma.EventCreateWithoutTicketsInput, Prisma.EventUncheckedCreateWithoutTicketsInput>;
+    connectOrCreate?: Prisma.EventCreateOrConnectWithoutTicketsInput;
+    upsert?: Prisma.EventUpsertWithoutTicketsInput;
+    connect?: Prisma.EventWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.EventUpdateToOneWithWhereWithoutTicketsInput, Prisma.EventUpdateWithoutTicketsInput>, Prisma.EventUncheckedUpdateWithoutTicketsInput>;
+};
+export type EventCreateWithoutOrganizerInput = {
+    title: string;
+    description: string;
+    date: Date | string;
+    duree: string;
+    location: string;
+    city: string;
+    price: number;
+    total_seats: number;
+    seats_available: number;
+    category: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    picture?: number | null;
+    tickets?: Prisma.TicketCreateNestedManyWithoutEventInput;
+};
+export type EventUncheckedCreateWithoutOrganizerInput = {
+    id?: number;
+    title: string;
+    description: string;
+    date: Date | string;
+    duree: string;
+    location: string;
+    city: string;
+    price: number;
+    total_seats: number;
+    seats_available: number;
+    category: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    picture?: number | null;
+    tickets?: Prisma.TicketUncheckedCreateNestedManyWithoutEventInput;
+};
+export type EventCreateOrConnectWithoutOrganizerInput = {
+    where: Prisma.EventWhereUniqueInput;
+    create: Prisma.XOR<Prisma.EventCreateWithoutOrganizerInput, Prisma.EventUncheckedCreateWithoutOrganizerInput>;
+};
+export type EventCreateManyOrganizerInputEnvelope = {
+    data: Prisma.EventCreateManyOrganizerInput | Prisma.EventCreateManyOrganizerInput[];
+};
+export type EventUpsertWithWhereUniqueWithoutOrganizerInput = {
+    where: Prisma.EventWhereUniqueInput;
+    update: Prisma.XOR<Prisma.EventUpdateWithoutOrganizerInput, Prisma.EventUncheckedUpdateWithoutOrganizerInput>;
+    create: Prisma.XOR<Prisma.EventCreateWithoutOrganizerInput, Prisma.EventUncheckedCreateWithoutOrganizerInput>;
+};
+export type EventUpdateWithWhereUniqueWithoutOrganizerInput = {
+    where: Prisma.EventWhereUniqueInput;
+    data: Prisma.XOR<Prisma.EventUpdateWithoutOrganizerInput, Prisma.EventUncheckedUpdateWithoutOrganizerInput>;
+};
+export type EventUpdateManyWithWhereWithoutOrganizerInput = {
+    where: Prisma.EventScalarWhereInput;
+    data: Prisma.XOR<Prisma.EventUpdateManyMutationInput, Prisma.EventUncheckedUpdateManyWithoutOrganizerInput>;
+};
+export type EventScalarWhereInput = {
+    AND?: Prisma.EventScalarWhereInput | Prisma.EventScalarWhereInput[];
+    OR?: Prisma.EventScalarWhereInput[];
+    NOT?: Prisma.EventScalarWhereInput | Prisma.EventScalarWhereInput[];
+    id?: Prisma.IntFilter<"Event"> | number;
+    title?: Prisma.StringFilter<"Event"> | string;
+    description?: Prisma.StringFilter<"Event"> | string;
+    date?: Prisma.DateTimeFilter<"Event"> | Date | string;
+    duree?: Prisma.StringFilter<"Event"> | string;
+    location?: Prisma.StringFilter<"Event"> | string;
+    city?: Prisma.StringFilter<"Event"> | string;
+    price?: Prisma.IntFilter<"Event"> | number;
+    total_seats?: Prisma.IntFilter<"Event"> | number;
+    seats_available?: Prisma.IntFilter<"Event"> | number;
+    category?: Prisma.StringFilter<"Event"> | string;
+    organizerId?: Prisma.StringFilter<"Event"> | string;
+    createdAt?: Prisma.DateTimeFilter<"Event"> | Date | string;
+    updatedAt?: Prisma.DateTimeFilter<"Event"> | Date | string;
+    picture?: Prisma.IntNullableFilter<"Event"> | number | null;
+};
+export type EventCreateWithoutTicketsInput = {
+    title: string;
+    description: string;
+    date: Date | string;
+    duree: string;
+    location: string;
+    city: string;
+    price: number;
+    total_seats: number;
+    seats_available: number;
+    category: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    picture?: number | null;
+    organizer: Prisma.UserCreateNestedOneWithoutEventsInput;
+};
+export type EventUncheckedCreateWithoutTicketsInput = {
+    id?: number;
+    title: string;
+    description: string;
+    date: Date | string;
+    duree: string;
+    location: string;
+    city: string;
+    price: number;
+    total_seats: number;
+    seats_available: number;
+    category: string;
+    organizerId: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    picture?: number | null;
+};
+export type EventCreateOrConnectWithoutTicketsInput = {
+    where: Prisma.EventWhereUniqueInput;
+    create: Prisma.XOR<Prisma.EventCreateWithoutTicketsInput, Prisma.EventUncheckedCreateWithoutTicketsInput>;
+};
+export type EventUpsertWithoutTicketsInput = {
+    update: Prisma.XOR<Prisma.EventUpdateWithoutTicketsInput, Prisma.EventUncheckedUpdateWithoutTicketsInput>;
+    create: Prisma.XOR<Prisma.EventCreateWithoutTicketsInput, Prisma.EventUncheckedCreateWithoutTicketsInput>;
+    where?: Prisma.EventWhereInput;
+};
+export type EventUpdateToOneWithWhereWithoutTicketsInput = {
+    where?: Prisma.EventWhereInput;
+    data: Prisma.XOR<Prisma.EventUpdateWithoutTicketsInput, Prisma.EventUncheckedUpdateWithoutTicketsInput>;
+};
+export type EventUpdateWithoutTicketsInput = {
+    title?: Prisma.StringFieldUpdateOperationsInput | string;
+    description?: Prisma.StringFieldUpdateOperationsInput | string;
+    date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    duree?: Prisma.StringFieldUpdateOperationsInput | string;
+    location?: Prisma.StringFieldUpdateOperationsInput | string;
+    city?: Prisma.StringFieldUpdateOperationsInput | string;
+    price?: Prisma.IntFieldUpdateOperationsInput | number;
+    total_seats?: Prisma.IntFieldUpdateOperationsInput | number;
+    seats_available?: Prisma.IntFieldUpdateOperationsInput | number;
+    category?: Prisma.StringFieldUpdateOperationsInput | string;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    picture?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    organizer?: Prisma.UserUpdateOneRequiredWithoutEventsNestedInput;
+};
+export type EventUncheckedUpdateWithoutTicketsInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    title?: Prisma.StringFieldUpdateOperationsInput | string;
+    description?: Prisma.StringFieldUpdateOperationsInput | string;
+    date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    duree?: Prisma.StringFieldUpdateOperationsInput | string;
+    location?: Prisma.StringFieldUpdateOperationsInput | string;
+    city?: Prisma.StringFieldUpdateOperationsInput | string;
+    price?: Prisma.IntFieldUpdateOperationsInput | number;
+    total_seats?: Prisma.IntFieldUpdateOperationsInput | number;
+    seats_available?: Prisma.IntFieldUpdateOperationsInput | number;
+    category?: Prisma.StringFieldUpdateOperationsInput | string;
+    organizerId?: Prisma.StringFieldUpdateOperationsInput | string;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    picture?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+};
+export type EventCreateManyOrganizerInput = {
+    id?: number;
+    title: string;
+    description: string;
+    date: Date | string;
+    duree: string;
+    location: string;
+    city: string;
+    price: number;
+    total_seats: number;
+    seats_available: number;
+    category: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    picture?: number | null;
+};
+export type EventUpdateWithoutOrganizerInput = {
+    title?: Prisma.StringFieldUpdateOperationsInput | string;
+    description?: Prisma.StringFieldUpdateOperationsInput | string;
+    date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    duree?: Prisma.StringFieldUpdateOperationsInput | string;
+    location?: Prisma.StringFieldUpdateOperationsInput | string;
+    city?: Prisma.StringFieldUpdateOperationsInput | string;
+    price?: Prisma.IntFieldUpdateOperationsInput | number;
+    total_seats?: Prisma.IntFieldUpdateOperationsInput | number;
+    seats_available?: Prisma.IntFieldUpdateOperationsInput | number;
+    category?: Prisma.StringFieldUpdateOperationsInput | string;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    picture?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    tickets?: Prisma.TicketUpdateManyWithoutEventNestedInput;
+};
+export type EventUncheckedUpdateWithoutOrganizerInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    title?: Prisma.StringFieldUpdateOperationsInput | string;
+    description?: Prisma.StringFieldUpdateOperationsInput | string;
+    date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    duree?: Prisma.StringFieldUpdateOperationsInput | string;
+    location?: Prisma.StringFieldUpdateOperationsInput | string;
+    city?: Prisma.StringFieldUpdateOperationsInput | string;
+    price?: Prisma.IntFieldUpdateOperationsInput | number;
+    total_seats?: Prisma.IntFieldUpdateOperationsInput | number;
+    seats_available?: Prisma.IntFieldUpdateOperationsInput | number;
+    category?: Prisma.StringFieldUpdateOperationsInput | string;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    picture?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    tickets?: Prisma.TicketUncheckedUpdateManyWithoutEventNestedInput;
+};
+export type EventUncheckedUpdateManyWithoutOrganizerInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    title?: Prisma.StringFieldUpdateOperationsInput | string;
+    description?: Prisma.StringFieldUpdateOperationsInput | string;
+    date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    duree?: Prisma.StringFieldUpdateOperationsInput | string;
+    location?: Prisma.StringFieldUpdateOperationsInput | string;
+    city?: Prisma.StringFieldUpdateOperationsInput | string;
+    price?: Prisma.IntFieldUpdateOperationsInput | number;
+    total_seats?: Prisma.IntFieldUpdateOperationsInput | number;
+    seats_available?: Prisma.IntFieldUpdateOperationsInput | number;
+    category?: Prisma.StringFieldUpdateOperationsInput | string;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    picture?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+};
+/**
+ * Count Type EventCountOutputType
+ */
+export type EventCountOutputType = {
+    tickets: number;
+};
+export type EventCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    tickets?: boolean | EventCountOutputTypeCountTicketsArgs;
+};
+/**
+ * EventCountOutputType without action
+ */
+export type EventCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventCountOutputType
+     */
+    select?: Prisma.EventCountOutputTypeSelect<ExtArgs> | null;
+};
+/**
+ * EventCountOutputType without action
+ */
+export type EventCountOutputTypeCountTicketsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.TicketWhereInput;
+};
 export type EventSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     title?: boolean;
     description?: boolean;
     date?: boolean;
     duree?: boolean;
-    lieu?: boolean;
-    ville?: boolean;
-    prix_billet?: boolean;
-    nombre_total_places?: boolean;
-    categorie?: boolean;
-    image_couverture?: boolean;
+    location?: boolean;
+    city?: boolean;
+    price?: boolean;
+    total_seats?: boolean;
+    seats_available?: boolean;
+    category?: boolean;
+    organizerId?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
+    picture?: boolean;
+    tickets?: boolean | Prisma.Event$ticketsArgs<ExtArgs>;
+    organizer?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
+    _count?: boolean | Prisma.EventCountOutputTypeDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["event"]>;
 export type EventSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
@@ -470,12 +883,17 @@ export type EventSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
     description?: boolean;
     date?: boolean;
     duree?: boolean;
-    lieu?: boolean;
-    ville?: boolean;
-    prix_billet?: boolean;
-    nombre_total_places?: boolean;
-    categorie?: boolean;
-    image_couverture?: boolean;
+    location?: boolean;
+    city?: boolean;
+    price?: boolean;
+    total_seats?: boolean;
+    seats_available?: boolean;
+    category?: boolean;
+    organizerId?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
+    picture?: boolean;
+    organizer?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["event"]>;
 export type EventSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
@@ -483,12 +901,17 @@ export type EventSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
     description?: boolean;
     date?: boolean;
     duree?: boolean;
-    lieu?: boolean;
-    ville?: boolean;
-    prix_billet?: boolean;
-    nombre_total_places?: boolean;
-    categorie?: boolean;
-    image_couverture?: boolean;
+    location?: boolean;
+    city?: boolean;
+    price?: boolean;
+    total_seats?: boolean;
+    seats_available?: boolean;
+    category?: boolean;
+    organizerId?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
+    picture?: boolean;
+    organizer?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["event"]>;
 export type EventSelectScalar = {
     id?: boolean;
@@ -496,29 +919,51 @@ export type EventSelectScalar = {
     description?: boolean;
     date?: boolean;
     duree?: boolean;
-    lieu?: boolean;
-    ville?: boolean;
-    prix_billet?: boolean;
-    nombre_total_places?: boolean;
-    categorie?: boolean;
-    image_couverture?: boolean;
+    location?: boolean;
+    city?: boolean;
+    price?: boolean;
+    total_seats?: boolean;
+    seats_available?: boolean;
+    category?: boolean;
+    organizerId?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
+    picture?: boolean;
 };
-export type EventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "date" | "duree" | "lieu" | "ville" | "prix_billet" | "nombre_total_places" | "categorie" | "image_couverture", ExtArgs["result"]["event"]>;
+export type EventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "date" | "duree" | "location" | "city" | "price" | "total_seats" | "seats_available" | "category" | "organizerId" | "createdAt" | "updatedAt" | "picture", ExtArgs["result"]["event"]>;
+export type EventInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    tickets?: boolean | Prisma.Event$ticketsArgs<ExtArgs>;
+    organizer?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
+    _count?: boolean | Prisma.EventCountOutputTypeDefaultArgs<ExtArgs>;
+};
+export type EventIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    organizer?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
+};
+export type EventIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    organizer?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
+};
 export type $EventPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     name: "Event";
-    objects: {};
+    objects: {
+        tickets: Prisma.$TicketPayload<ExtArgs>[];
+        organizer: Prisma.$UserPayload<ExtArgs>;
+    };
     scalars: runtime.Types.Extensions.GetPayloadResult<{
         id: number;
         title: string;
         description: string;
         date: Date;
         duree: string;
-        lieu: string;
-        ville: string;
-        prix_billet: number;
-        nombre_total_places: number;
-        categorie: string;
-        image_couverture: number | null;
+        location: string;
+        city: string;
+        price: number;
+        total_seats: number;
+        seats_available: number;
+        category: string;
+        organizerId: string;
+        createdAt: Date;
+        updatedAt: Date;
+        picture: number | null;
     }, ExtArgs["result"]["event"]>;
     composites: {};
 };
@@ -848,6 +1293,8 @@ export interface EventDelegate<ExtArgs extends runtime.Types.Extensions.Internal
  */
 export interface Prisma__EventClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise";
+    tickets<T extends Prisma.Event$ticketsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$ticketsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    organizer<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -878,12 +1325,16 @@ export interface EventFieldRefs {
     readonly description: Prisma.FieldRef<"Event", 'String'>;
     readonly date: Prisma.FieldRef<"Event", 'DateTime'>;
     readonly duree: Prisma.FieldRef<"Event", 'String'>;
-    readonly lieu: Prisma.FieldRef<"Event", 'String'>;
-    readonly ville: Prisma.FieldRef<"Event", 'String'>;
-    readonly prix_billet: Prisma.FieldRef<"Event", 'Int'>;
-    readonly nombre_total_places: Prisma.FieldRef<"Event", 'Int'>;
-    readonly categorie: Prisma.FieldRef<"Event", 'String'>;
-    readonly image_couverture: Prisma.FieldRef<"Event", 'Int'>;
+    readonly location: Prisma.FieldRef<"Event", 'String'>;
+    readonly city: Prisma.FieldRef<"Event", 'String'>;
+    readonly price: Prisma.FieldRef<"Event", 'Int'>;
+    readonly total_seats: Prisma.FieldRef<"Event", 'Int'>;
+    readonly seats_available: Prisma.FieldRef<"Event", 'Int'>;
+    readonly category: Prisma.FieldRef<"Event", 'String'>;
+    readonly organizerId: Prisma.FieldRef<"Event", 'String'>;
+    readonly createdAt: Prisma.FieldRef<"Event", 'DateTime'>;
+    readonly updatedAt: Prisma.FieldRef<"Event", 'DateTime'>;
+    readonly picture: Prisma.FieldRef<"Event", 'Int'>;
 }
 /**
  * Event findUnique
@@ -897,6 +1348,10 @@ export type EventFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Interna
      * Omit specific fields from the Event
      */
     omit?: Prisma.EventOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.EventInclude<ExtArgs> | null;
     /**
      * Filter, which Event to fetch.
      */
@@ -915,6 +1370,10 @@ export type EventFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.
      */
     omit?: Prisma.EventOmit<ExtArgs> | null;
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.EventInclude<ExtArgs> | null;
+    /**
      * Filter, which Event to fetch.
      */
     where: Prisma.EventWhereUniqueInput;
@@ -931,6 +1390,10 @@ export type EventFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Internal
      * Omit specific fields from the Event
      */
     omit?: Prisma.EventOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.EventInclude<ExtArgs> | null;
     /**
      * Filter, which Event to fetch.
      */
@@ -979,6 +1442,10 @@ export type EventFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.I
      */
     omit?: Prisma.EventOmit<ExtArgs> | null;
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.EventInclude<ExtArgs> | null;
+    /**
      * Filter, which Event to fetch.
      */
     where?: Prisma.EventWhereInput;
@@ -1025,6 +1492,10 @@ export type EventFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalA
      * Omit specific fields from the Event
      */
     omit?: Prisma.EventOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.EventInclude<ExtArgs> | null;
     /**
      * Filter, which Events to fetch.
      */
@@ -1073,6 +1544,10 @@ export type EventCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
      */
     omit?: Prisma.EventOmit<ExtArgs> | null;
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.EventInclude<ExtArgs> | null;
+    /**
      * The data needed to create a Event.
      */
     data: Prisma.XOR<Prisma.EventCreateInput, Prisma.EventUncheckedCreateInput>;
@@ -1102,6 +1577,10 @@ export type EventCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extension
      * The data used to create many Events.
      */
     data: Prisma.EventCreateManyInput | Prisma.EventCreateManyInput[];
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.EventIncludeCreateManyAndReturn<ExtArgs> | null;
 };
 /**
  * Event update
@@ -1115,6 +1594,10 @@ export type EventUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
      * Omit specific fields from the Event
      */
     omit?: Prisma.EventOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.EventInclude<ExtArgs> | null;
     /**
      * The data needed to update a Event.
      */
@@ -1165,6 +1648,10 @@ export type EventUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extension
      * Limit how many Events to update.
      */
     limit?: number;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.EventIncludeUpdateManyAndReturn<ExtArgs> | null;
 };
 /**
  * Event upsert
@@ -1178,6 +1665,10 @@ export type EventUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
      * Omit specific fields from the Event
      */
     omit?: Prisma.EventOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.EventInclude<ExtArgs> | null;
     /**
      * The filter to search for the Event to update in case it exists.
      */
@@ -1204,6 +1695,10 @@ export type EventDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
      */
     omit?: Prisma.EventOmit<ExtArgs> | null;
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.EventInclude<ExtArgs> | null;
+    /**
      * Filter which Event to delete.
      */
     where: Prisma.EventWhereUniqueInput;
@@ -1222,6 +1717,29 @@ export type EventDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
     limit?: number;
 };
 /**
+ * Event.tickets
+ */
+export type Event$ticketsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ticket
+     */
+    select?: Prisma.TicketSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Ticket
+     */
+    omit?: Prisma.TicketOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.TicketInclude<ExtArgs> | null;
+    where?: Prisma.TicketWhereInput;
+    orderBy?: Prisma.TicketOrderByWithRelationInput | Prisma.TicketOrderByWithRelationInput[];
+    cursor?: Prisma.TicketWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.TicketScalarFieldEnum | Prisma.TicketScalarFieldEnum[];
+};
+/**
  * Event without action
  */
 export type EventDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1233,5 +1751,9 @@ export type EventDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
      * Omit specific fields from the Event
      */
     omit?: Prisma.EventOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.EventInclude<ExtArgs> | null;
 };
 //# sourceMappingURL=Event.d.ts.map

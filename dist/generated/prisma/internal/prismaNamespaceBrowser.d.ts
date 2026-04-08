@@ -27,6 +27,9 @@ export declare const JsonNull: import("@prisma/client-runtime-utils").JsonNullCl
 export declare const AnyNull: import("@prisma/client-runtime-utils").AnyNullClass;
 export declare const ModelName: {
     readonly Event: "Event";
+    readonly User: "User";
+    readonly Ticket: "Ticket";
+    readonly RefreshToken: "RefreshToken";
 };
 export type ModelName = (typeof ModelName)[keyof typeof ModelName];
 export declare const TransactionIsolationLevel: {
@@ -39,14 +42,46 @@ export declare const EventScalarFieldEnum: {
     readonly description: "description";
     readonly date: "date";
     readonly duree: "duree";
-    readonly lieu: "lieu";
-    readonly ville: "ville";
-    readonly prix_billet: "prix_billet";
-    readonly nombre_total_places: "nombre_total_places";
-    readonly categorie: "categorie";
-    readonly image_couverture: "image_couverture";
+    readonly location: "location";
+    readonly city: "city";
+    readonly price: "price";
+    readonly total_seats: "total_seats";
+    readonly seats_available: "seats_available";
+    readonly category: "category";
+    readonly organizerId: "organizerId";
+    readonly createdAt: "createdAt";
+    readonly updatedAt: "updatedAt";
+    readonly picture: "picture";
 };
 export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum];
+export declare const UserScalarFieldEnum: {
+    readonly id: "id";
+    readonly name: "name";
+    readonly email: "email";
+    readonly passwordHash: "passwordHash";
+    readonly role: "role";
+    readonly createdAt: "createdAt";
+    readonly updatedAt: "updatedAt";
+};
+export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum];
+export declare const TicketScalarFieldEnum: {
+    readonly id: "id";
+    readonly qrCode: "qrCode";
+    readonly status: "status";
+    readonly userId: "userId";
+    readonly eventId: "eventId";
+    readonly purchaseDate: "purchaseDate";
+};
+export type TicketScalarFieldEnum = (typeof TicketScalarFieldEnum)[keyof typeof TicketScalarFieldEnum];
+export declare const RefreshTokenScalarFieldEnum: {
+    readonly id: "id";
+    readonly tokenHash: "tokenHash";
+    readonly userId: "userId";
+    readonly expiresAt: "expiresAt";
+    readonly revokedAt: "revokedAt";
+    readonly createdAt: "createdAt";
+};
+export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum];
 export declare const SortOrder: {
     readonly asc: "asc";
     readonly desc: "desc";
