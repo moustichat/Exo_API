@@ -1,15 +1,11 @@
-import jwt from 'jsonwebtoken';
+import jwt, {} from 'jsonwebtoken';
 const accessSecret = process.env.JWT_ACCESS_SECRET;
 const refreshSecret = process.env.JWT_REFRESH_SECRET;
 export function signAccessToken(payload) {
-    return jwt.sign(payload, accessSecret, {
-        expiresIn: process.env.JWT_ACCESS_EXPIRES_IN || '15m',
-    });
+    return jwt.sign(payload, accessSecret, { expiresIn: process.env.JWT_ACCESS_EXPIRES_IN || '15m' });
 }
 export function signRefreshToken(payload) {
-    return jwt.sign(payload, refreshSecret, {
-        expiresIn: process.env.JWT_REFRESH_EXPIRES_IN || '7d',
-    });
+    return jwt.sign(payload, refreshSecret, { expiresIn: process.env.JWT_REFRESH_EXPIRES_IN || '7d' });
 }
 export function verifyAccessToken(token) {
     return jwt.verify(token, accessSecret);

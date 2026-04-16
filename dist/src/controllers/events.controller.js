@@ -1,19 +1,6 @@
-import {} from "../models/event";
 import { prisma } from "./../../lib/prisma";
-import * as z from "zod";
-const schema_id = z.coerce.number();
-const Event = z.object({
-    title: z.string(),
-    description: z.string(),
-    date: z.iso.datetime(),
-    duree: z.iso.time(),
-    lieu: z.string(),
-    ville: z.string(),
-    prix_billet: z.number(),
-    nombre_total_places: z.number(),
-    categorie: z.string(),
-    image_couverture: z.union([z.number(), z.null()]).default(null)
-});
+import { z } from "zod";
+import { Event, schema_id } from "./../verif";
 export async function getEvents(req, res) {
     const allEvents = await prisma.event.findMany();
     res.status(200).json(allEvents);
@@ -38,7 +25,7 @@ export async function createEvent(req, res) {
             data: Event.parse(req.body)
         });
         console.log("Created event:", event);
-        res.status(201).json({ message: 'success' });
+        res.status(201).json({ message: 'success', event: event });
     }
     catch (error) {
         if (error instanceof z.ZodError) {

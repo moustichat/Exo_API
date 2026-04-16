@@ -2,6 +2,7 @@ import { prisma } from "./lib/prisma";
 async function main() {
     // Create a test event
     const event = await prisma.event.create({
+        /**
         data: {
             title: "Soiree Tech & Innovation",
             description: "Conference sur les tendances IA et web avec networking.",
@@ -19,6 +20,7 @@ async function main() {
     // Fetch all events
     const allEvents = await prisma.event.findMany();
     console.log("All events:", JSON.stringify(allEvents, null, 2));
+        ***/
 }
 main()
     .then(async () => {

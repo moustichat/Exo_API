@@ -14,7 +14,7 @@ datasource db {
 
 
 model Event {
-    id Int @id @default(autoincrement()) 
+    id String @id @default(cuid())
     title String 
     description String
     date DateTime
@@ -54,7 +54,7 @@ model Ticket {
     qrCode String @unique
     status TicketStatus
     userId String
-    eventId Int
+    eventId String
     purchaseDate DateTime @default(now())
     
     user User @relation("UserTickets", fields: [userId], references: [id])
