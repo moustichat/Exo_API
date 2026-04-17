@@ -1,46 +1,31 @@
 import { Router } from 'express';
 import { authService } from '../services/auth.service';
+import { authLoginSchema, authRegisterSchema, authTokenSchema } from '../verif';
+import { validateBody } from '../middleware/validate.middleware';
 
 
 const router = Router();
 
 
-router.post('/register', async (req, res, next) => {
-    try {
-        const user = await authService.register(req.body);
-        res.status(201).json({ success: true, data: user });
-    } catch (e) {
-        console.error(e);
-    next(e);
-    }
+router.post('/register', validateBody(authRegisterSchema), async (req, res) => {
+    const user = await authService.register(req.body);
+    res.status(201).json({ success: true, data: user });
 });
 
 
-router.post('/login', async (req, res, next) => {
-    try {
-        const result = await authService.login(req.body);
-        res.json({ success: true, data: result });
-    } catch (e) {
-    next(e);
-    }
+router.post('/login', validateBody(authLoginSchema), async (req, res) => {
+    const result = await authService.login(req.body);
+    res.json({ success: true, data: result });
 });
 
-router.post('/refresh', async (req, res, next) => {
-    try {
-        const accessToken = await authService.refresh(req.body.refreshToken);
-        res.json({ success: true, data: { accessToken } });
-    } catch (e) {
-    next(e);
-    }
+router.post('/refresh', validateBody(authTokenSchema), async (req, res) => {
+    const accessToken = await authService.refresh(req.body.refreshToken);
+    res.json({ success: true, data: { accessToken } });
 });
 
-router.post('/logout', async (req, res, next) => {
-    try {
-        await authService.logout(req.body.refreshToken);
-        res.json({ success: true });
-    } catch (e) {
-    next(e);
-    }
+router.post('/logout', validateBody(authTokenSchema), async (req, res) => {
+    await authService.logout(req.body.refreshToken);
+    res.json({ success: true });
 });
 
 export default router;

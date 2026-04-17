@@ -2,6 +2,8 @@ import bcrypt from "bcryptjs";
 import crypto from "crypto";
 import { prisma } from "../lib/prisma";
 import { signAccessToken, signRefreshToken, verifyRefreshToken } from "../utils/jwt";
+import { jwtPayloadSchema } from "../verif";
+import { HttpError } from "../utils/http-error";
 
 
 function hashToken(rawToken: string) {
@@ -12,7 +14,7 @@ export const authService = {
     async register(input: { email: string; password: string }) {
         const existing = await prisma.user.findUnique({ where: { email: input.email } });
 
-        if (existing) throw new Error('Email already used');
+        if (existing) throw new HttpError(409, 'Email already used');
         console.log('Registering user with email:', input.email);
         const passwordHash = await bcrypt.hash(input.password, 10);
         const user = await prisma.user.create({
@@ -28,10 +30,10 @@ export const authService = {
 
     async login(input: { email: string; password: string }) {
         const user = await prisma.user.findUnique({ where: { email: input.email } });
-        if (!user) throw new Error('Invalid credentials');
+        if (!user) throw new HttpError(401, 'Invalid credentials');
 
         const ok = await bcrypt.compare(input.password, user.passwordHash);
-        if (!ok) throw new Error('Invalid credentials');
+        if (!ok) throw new HttpError(401, 'Invalid credentials');
 
         const payload = { userId: user.id, role: user.role };
         const accessToken = signAccessToken(payload);
@@ -52,12 +54,17 @@ export const authService = {
     },
 
     async refresh(refreshToken: string) {
-        const payload = verifyRefreshToken(refreshToken);
+        let payload: ReturnType<typeof jwtPayloadSchema.parse>;
+        try {
+            payload = jwtPayloadSchema.parse(verifyRefreshToken(refreshToken));
+        } catch {
+            throw new HttpError(401, 'Invalid refresh token');
+        }
         const tokenHash = hashToken(refreshToken);
         const stored = await prisma.refreshToken.findUnique({ where: { tokenHash } });
 
         if (!stored || stored.revokedAt || stored.expiresAt < new Date()) {
-            throw new Error('Invalid refresh token');
+            throw new HttpError(401, 'Invalid refresh token');
         }
 
         return signAccessToken({
