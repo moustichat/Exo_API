@@ -1,0 +1,37 @@
+[2026-04-17 12:20:19] INFO: Server running at port 3000 {
+  "service": "Exo_API"
+}
+[2026-04-17 12:20:23] INFO: Incoming request {
+  "service": "Exo_API",
+  "requestId": "auth-2026-04-17-x6cwkt",
+  "method": "POST",
+  "path": "/api/v1/auth/refresh",
+  "query": {},
+  "ip": "::1"
+}
+[2026-04-17 12:20:23] INFO: Request completed {
+  "service": "Exo_API",
+  "requestId": "auth-2026-04-17-x6cwkt",
+  "method": "POST",
+  "path": "/refresh",
+  "statusCode": 200,
+  "duration": "79ms",
+  "ip": "::1"
+}
+[2026-04-17 12:21:27] INFO: Incoming request {
+  "service": "Exo_API",
+  "requestId": "auth-2026-04-17-cj2a0z",
+  "method": "POST",
+  "path": "/api/v1/auth/login",
+  "query": {},
+  "ip": "::1"
+}
+[2026-04-17 12:21:27] WARN: Request completed {
+  "service": "Exo_API",
+  "requestId": "auth-2026-04-17-cj2a0z",
+  "method": "POST",
+  "path": "/api/v1/auth/login",
+  "statusCode": 401,
+  "duration": "69ms",
+  "ip": "::1"
+}
