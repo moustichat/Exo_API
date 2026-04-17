@@ -35,3 +35,231 @@
   "duration": "69ms",
   "ip": "::1"
 }
+[2026-04-17 14:12:46] INFO: Server running at port 3000 
+[2026-04-17 14:16:40] INFO: Incoming request {
+  "requestId": "req-2026-04-17-609hsj",
+  "method": "GET",
+  "path": "/",
+  "query": {},
+  "ip": "::1"
+}
+[2026-04-17 14:16:40] INFO: Request completed {
+  "requestId": "req-2026-04-17-609hsj",
+  "method": "GET",
+  "path": "/",
+  "statusCode": 200,
+  "duration": "2ms",
+  "ip": "::1"
+}
+[2026-04-17 14:16:40] INFO: Incoming request {
+  "requestId": "req-2026-04-17-olk1d7",
+  "method": "GET",
+  "path": "/favicon.ico",
+  "query": {},
+  "ip": "::1"
+}
+[2026-04-17 14:16:40] WARN: Request completed {
+  "requestId": "req-2026-04-17-olk1d7",
+  "method": "GET",
+  "path": "/favicon.ico",
+  "statusCode": 404,
+  "duration": "2ms",
+  "ip": "::1"
+}
+[2026-04-17 14:19:40] INFO: Server running at port 3000 
+[2026-04-17 14:19:44] INFO: Incoming request {
+  "requestId": "events-2026-04-17-zgon7z",
+  "method": "GET",
+  "path": "/api/v1/events",
+  "query": {},
+  "ip": "::1"
+}
+[2026-04-17 14:19:44] INFO: Request completed {
+  "requestId": "events-2026-04-17-zgon7z",
+  "method": "GET",
+  "path": "/",
+  "statusCode": 200,
+  "duration": "85ms",
+  "ip": "::1"
+}
+[2026-04-17 14:19:44] INFO: Incoming request {
+  "requestId": "events-2026-04-17-s48371",
+  "method": "GET",
+  "path": "/api/v1/events",
+  "query": {},
+  "ip": "::1"
+}
+[2026-04-17 14:19:44] INFO: Request completed {
+  "requestId": "events-2026-04-17-s48371",
+  "method": "GET",
+  "path": "/",
+  "statusCode": 200,
+  "duration": "1ms",
+  "ip": "::1"
+}
+[2026-04-17 14:19:44] INFO: Incoming request {
+  "requestId": "events-2026-04-17-ervxqm",
+  "method": "GET",
+  "path": "/api/v1/events",
+  "query": {},
+  "ip": "::1"
+}
+[2026-04-17 14:19:44] INFO: Request completed {
+  "requestId": "events-2026-04-17-ervxqm",
+  "method": "GET",
+  "path": "/",
+  "statusCode": 200,
+  "duration": "1ms",
+  "ip": "::1"
+}
+[2026-04-17 14:19:50] INFO: Incoming request {
+  "requestId": "users-2026-04-17-bcjbyv",
+  "method": "GET",
+  "path": "/api/v1/users/profile",
+  "query": {},
+  "ip": "::1"
+}
+[2026-04-17 14:19:50] WARN: Request completed {
+  "requestId": "users-2026-04-17-bcjbyv",
+  "method": "GET",
+  "path": "/profile",
+  "statusCode": 400,
+  "duration": "2ms",
+  "ip": "::1"
+}
+[2026-04-17 14:19:50] INFO: Incoming request {
+  "requestId": "users-2026-04-17-50z9ka",
+  "method": "GET",
+  "path": "/api/v1/users/profile",
+  "query": {},
+  "ip": "::1"
+}
+[2026-04-17 14:19:50] WARN: Request completed {
+  "requestId": "users-2026-04-17-50z9ka",
+  "method": "GET",
+  "path": "/profile",
+  "statusCode": 400,
+  "duration": "1ms",
+  "ip": "::1"
+}
+[2026-04-17 14:19:50] INFO: Incoming request {
+  "requestId": "users-2026-04-17-mdxku7",
+  "method": "GET",
+  "path": "/api/v1/users/profile",
+  "query": {},
+  "ip": "::1"
+}
+[2026-04-17 14:19:50] WARN: Request completed {
+  "requestId": "users-2026-04-17-mdxku7",
+  "method": "GET",
+  "path": "/profile",
+  "statusCode": 400,
+  "duration": "0ms",
+  "ip": "::1"
+}
+[2026-04-17 14:19:50] INFO: Incoming request {
+  "requestId": "auth-2026-04-17-xwpded",
+  "method": "POST",
+  "path": "/api/v1/auth/logout",
+  "query": {},
+  "ip": "::1"
+}
+[2026-04-17 14:19:50] INFO: Request completed {
+  "requestId": "auth-2026-04-17-xwpded",
+  "method": "POST",
+  "path": "/logout",
+  "statusCode": 200,
+  "duration": "2ms",
+  "ip": "::1"
+}
+[2026-04-17 14:19:51] INFO: Incoming request {
+  "requestId": "events-2026-04-17-ge6xbk",
+  "method": "GET",
+  "path": "/api/v1/events",
+  "query": {},
+  "ip": "::1"
+}
+[2026-04-17 14:19:51] INFO: Request completed {
+  "requestId": "events-2026-04-17-ge6xbk",
+  "method": "GET",
+  "path": "/",
+  "statusCode": 200,
+  "duration": "1ms",
+  "ip": "::1"
+}
+[2026-04-17 14:19:51] INFO: Incoming request {
+  "requestId": "events-2026-04-17-llhu3x",
+  "method": "GET",
+  "path": "/api/v1/events",
+  "query": {},
+  "ip": "::1"
+}
+[2026-04-17 14:19:51] INFO: Request completed {
+  "requestId": "events-2026-04-17-llhu3x",
+  "method": "GET",
+  "path": "/",
+  "statusCode": 200,
+  "duration": "1ms",
+  "ip": "::1"
+}
+[2026-04-17 14:19:51] INFO: Incoming request {
+  "requestId": "events-2026-04-17-umm6d6",
+  "method": "GET",
+  "path": "/api/v1/events",
+  "query": {},
+  "ip": "::1"
+}
+[2026-04-17 14:19:51] INFO: Request completed {
+  "requestId": "events-2026-04-17-umm6d6",
+  "method": "GET",
+  "path": "/",
+  "statusCode": 200,
+  "duration": "1ms",
+  "ip": "::1"
+}
+[2026-04-17 14:29:27] INFO: Server running at port 3000 
+[2026-04-17 14:30:07] INFO: Incoming request {
+  "requestId": "auth-2026-04-17-2x05cl",
+  "method": "POST",
+  "path": "/api/v1/auth/register",
+  "query": {},
+  "ip": "::1"
+}
+[2026-04-17 14:30:07] WARN: Request completed {
+  "requestId": "auth-2026-04-17-2x05cl",
+  "method": "POST",
+  "path": "/api/v1/auth/register",
+  "statusCode": 409,
+  "duration": "79ms",
+  "ip": "::1"
+}
+[2026-04-17 14:30:39] INFO: Incoming request {
+  "requestId": "auth-2026-04-17-9adri8",
+  "method": "POST",
+  "path": "/api/v1/auth/register",
+  "query": {},
+  "ip": "::1"
+}
+[2026-04-17 14:30:39] INFO: Request completed {
+  "requestId": "auth-2026-04-17-9adri8",
+  "method": "POST",
+  "path": "/register",
+  "statusCode": 201,
+  "duration": "150ms",
+  "ip": "::1"
+}
+[2026-04-17 14:31:02] INFO: Incoming request {
+  "requestId": "users-2026-04-17-dwaoq0",
+  "method": "GET",
+  "path": "/api/v1/users",
+  "query": {},
+  "ip": "::1"
+}
+[2026-04-17 14:31:02] INFO: Request completed {
+  "requestId": "users-2026-04-17-dwaoq0",
+  "method": "GET",
+  "path": "/",
+  "statusCode": 200,
+  "duration": "3ms",
+  "ip": "::1"
+}

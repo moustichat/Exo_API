@@ -14,4 +14,10 @@ router.get('/:id', validateParams(userIdParamsSchema), async (req: Request, res:
     res.status(200).json(await prisma.user.findUnique({ where: { id } }));
 });
 
+router.delete('/:id', validateParams(userIdParamsSchema), async (req: Request, res: Response) => {
+    const { id } = req.params as { id: string };
+    const user = await prisma.user.delete({ where: { id } });
+    res.status(200).json({ message: 'User deleted successfully', user });
+});
+
 export default router;
