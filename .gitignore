@@ -1,11 +1,8 @@
 /node_modules
-/dist
+/auto_generated
 *.db
 # Keep environment variables out of version control
 .env
 
-/generated/prisma
-
 /exam
 /front
-/logs

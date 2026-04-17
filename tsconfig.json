@@ -3,7 +3,7 @@
   "compilerOptions": {
     // File Layout
      "rootDir": "./",
-     "outDir": "./dist",
+     "outDir": "./auto_generated/dist",
 
     "moduleResolution": "bundler",
     "esModuleInterop": true,

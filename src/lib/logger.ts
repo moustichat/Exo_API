@@ -1,7 +1,7 @@
 import winston from 'winston';
 import path from 'path';
 
-const logsDir = path.join(process.cwd(), 'logs');
+const logsDir = path.join(process.cwd(), 'auto_generated/logs');
 
 export const logger = winston.createLogger({
     level: process.env.LOG_LEVEL || 'info',
