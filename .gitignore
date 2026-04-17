@@ -1,8 +1,7 @@
 /node_modules
 /auto_generated
-*.db
-# Keep environment variables out of version control
-.env
-
 /exam
 /front
+
+*.db
+.env
