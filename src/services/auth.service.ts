@@ -15,7 +15,6 @@ export const authService = {
         const existing = await prisma.user.findUnique({ where: { email: input.email } });
 
         if (existing) throw new HttpError(409, 'Email already used');
-        console.log('Registering user with email:', input.email);
         const passwordHash = await bcrypt.hash(input.password, 10);
         const user = await prisma.user.create({
             data: {
@@ -57,7 +56,7 @@ export const authService = {
         let payload: ReturnType<typeof jwtPayloadSchema.parse>;
         try {
             payload = jwtPayloadSchema.parse(verifyRefreshToken(refreshToken));
-        } catch {
+        } catch (error) {
             throw new HttpError(401, 'Invalid refresh token');
         }
         const tokenHash = hashToken(refreshToken);

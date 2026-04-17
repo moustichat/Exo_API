@@ -1,4 +1,5 @@
 import express, { type Request, type Response } from 'express';
+import cookieParser from 'cookie-parser';
 import 'dotenv/config';
 import eventRouter from './routes/event.route'
 import authRouter from './routes/auth.routes'
@@ -10,6 +11,7 @@ const port = process.env.PORT || 3000;
 
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.get('/', (request: Request, res: Response) => {
     res.send('Hi')

@@ -24,7 +24,7 @@ export const roleSchema = z.enum(["USER", "ORGANIZER", "ADMIN"]);
 export const jwtPayloadSchema = z.object({
     userId: schema_id,
     role: roleSchema,
-}).strict();
+}).passthrough();
 
 export const eventCreateSchema = z.object({
     ...eventBaseShape,
