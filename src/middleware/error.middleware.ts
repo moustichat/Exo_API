@@ -1,6 +1,5 @@
 import type { ErrorRequestHandler, RequestHandler } from "express";
 import * as z from "zod";
-import { Prisma } from "../../auto_generated/generated/prisma/client";
 import { HttpError } from "../utils/http-error";
 
 export const notFoundHandler: RequestHandler = (_req, res) => {
@@ -35,7 +34,8 @@ export const errorHandler: ErrorRequestHandler = (error, _req, res, _next) => {
         return;
     }
 
-    if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2025") {
+    // Avoid importing Prisma client here to keep tests simple; detect Prisma error by shape.
+    if ((error as any)?.code === "P2025" || (error as any)?.name === 'PrismaClientKnownRequestError') {
         res.status(404).json({
             success: false,
             error: {

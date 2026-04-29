@@ -7,13 +7,13 @@
 
     "moduleResolution": "bundler",
     "esModuleInterop": true,
-    "ignoreDeprecations": "5.0",
+    "ignoreDeprecations": "6.0",
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
     "module": "ESNext",
     "target": "ES2023",
-    "types": [],
+    "types": ["node", "jest"],
     // For nodejs:
     // "lib": ["esnext"],
     // "types": ["node"],
