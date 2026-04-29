@@ -6,6 +6,7 @@ import {
     eventUpdateSchema,
 } from "../verif";
 import { validateBody, validateParams } from "../middleware/validate.middleware";
+import { authMiddleware, requireRoles } from "../middleware/auth.middleware";
 
 
 const router = Router();
@@ -31,7 +32,7 @@ router.get('/:id', validateParams(eventIdParamsSchema), async (req: Request, res
 
 
 // POST /api/events
-router.post('/', validateBody(eventCreateSchema), async (req: Request, res: Response) => {
+router.post('/', authMiddleware, requireRoles('ORGANIZER', 'ADMIN'), validateBody(eventCreateSchema), async (req: Request, res: Response) => {
     const event = await prisma.event.create({
         data: req.body
     });
@@ -44,7 +45,7 @@ router.post('/', validateBody(eventCreateSchema), async (req: Request, res: Resp
 
 
 // PATCH /api/events/:id
-router.patch('/:id', validateParams(eventIdParamsSchema), validateBody(eventUpdateSchema), async (req: Request, res: Response) => {
+router.patch('/:id', authMiddleware, requireRoles('ORGANIZER', 'ADMIN'), validateParams(eventIdParamsSchema), validateBody(eventUpdateSchema), async (req: Request, res: Response) => {
     const { id } = req.params as { id: string };
     const event = await prisma.event.update({
         where: { id },
@@ -59,7 +60,7 @@ router.patch('/:id', validateParams(eventIdParamsSchema), validateBody(eventUpda
 
     
 // DELETE /api/events/:id
-router.delete('/:id', validateParams(eventIdParamsSchema), async (req: Request, res: Response) => {
+router.delete('/:id', authMiddleware, requireRoles('ORGANIZER', 'ADMIN'), validateParams(eventIdParamsSchema), async (req: Request, res: Response) => {
     const { id } = req.params as { id: string };
     const event = await prisma.event.delete({ where: { id } })
     console.log("Deleted event:", event);

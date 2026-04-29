@@ -32,3 +32,14 @@ app.use(errorHandler)
 app.listen(3000, () => {
     logger.info(`Server running at port ${port}`)
 })
+
+
+
+
+
+/*
+appliquer le middleware de secu 
+mettre les cors
+faire un test voir avec mounhir
+.env.example
+*/
