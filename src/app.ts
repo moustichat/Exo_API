@@ -41,8 +41,3 @@ app.use(notFoundHandler)
 app.use(errorHandler)
 
 export default app
-
-// Make CommonJS `require('../../src/app')` return the app directly
-// so tests using `require` work without `.default`.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-;(module as any).exports = app
