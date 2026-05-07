@@ -1,5 +1,6 @@
 const request = require('supertest')
-const app = require('../../src/app')
+const appModule = require('../../src/app')
+const app = appModule.default ?? appModule
 
 describe('Test the root path', () => {
   test('It should response the GET method', async () => {

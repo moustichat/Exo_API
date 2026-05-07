@@ -13,6 +13,7 @@ export type AuthenticatedRequest = Request & {
 
 export function authMiddleware(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     try {
+        console.log('[AUTH] Cookies received:', req.cookies);
         const rawAuthHeader = req.headers.authorization;
         const authHeader = rawAuthHeader ? bearerTokenSchema.parse(rawAuthHeader) : undefined;
         const headerToken = authHeader?.startsWith('Bearer ') ? authHeader.slice(7) : undefined;
@@ -20,6 +21,7 @@ export function authMiddleware(req: AuthenticatedRequest, res: Response, next: N
         const token = headerToken ?? cookieToken;
 
         if (!token) {
+            console.log('[AUTH] No token found');
             return res.status(401).json({ message: 'Unauthorized' });
         }
 
@@ -29,10 +31,12 @@ export function authMiddleware(req: AuthenticatedRequest, res: Response, next: N
             role: payload.role,
         };
         
+        console.log('[AUTH] User authenticated:', req.user);
         next();
 
-    } catch {
-    return res.status(401).json({ message: 'Invalid token' });
+    } catch (error) {
+        console.log('[AUTH] Error:', error);
+        return res.status(401).json({ message: 'Invalid token' });
     }
 }
 

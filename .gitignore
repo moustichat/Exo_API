@@ -2,6 +2,7 @@
 /auto_generated
 /exam
 /front
+/prisma/migrations
 
 *.db
 .env

@@ -3,6 +3,7 @@ import { authService } from '../services/auth.service';
 import { authLoginSchema, authRegisterSchema } from '../verif';
 import { validateBody } from '../middleware/validate.middleware';
 import { HttpError } from '../utils/http-error';
+import { authMiddleware, type AuthenticatedRequest } from '../middleware/auth.middleware';
 
 
 const router = Router();
@@ -10,7 +11,7 @@ const router = Router();
 const cookieOptions = {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
-    sameSite: 'strict' as const,
+    sameSite: 'lax' as const,
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
 };
 
@@ -48,6 +49,11 @@ router.post('/logout', async (req, res) => {
     res.clearCookie('accessToken');
     res.clearCookie('refreshToken');
     res.json({ success: true });
+});
+
+router.get('/me', authMiddleware, async (req: AuthenticatedRequest, res) => {
+    const user = await authService.getCurrentUser(req.user!.userId);
+    res.json({ success: true, data: { user } });
 });
 
 export default router;

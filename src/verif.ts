@@ -49,12 +49,21 @@ export const eventUpdateSchema = z.object(eventBaseShape).strict().partial().ref
 export const authRegisterSchema = z.object({
     email: z.email(),
     password: z.string().min(8),
+    name: z.string().trim().min(1),
 }).strict();
 
-export const authLoginSchema = authRegisterSchema;
+export const authLoginSchema = z.object({
+    email: z.email(),
+    password: z.string().min(8),
+}).strict();
 
 export const authTokenSchema = z.object({
     refreshToken: z.string().min(1),
+}).strict();
+
+export const ticketPurchaseSchema = z.object({
+    eventId: schema_id,
+    quantity: z.coerce.number().int().positive().default(1),
 }).strict();
 
 export const eventIdParamsSchema = z.object({
@@ -63,6 +72,18 @@ export const eventIdParamsSchema = z.object({
 
 export const userIdParamsSchema = z.object({
     id: schema_id,
+}).strict();
+
+export const userUpdateProfileSchema = z.object({
+    name: z.string().trim().min(1).optional(),
+    email: z.email().optional(),
+}).strict().refine((value) => Object.keys(value).length > 0, {
+    message: 'At least one field is required',
+});
+
+export const userUpdatePasswordSchema = z.object({
+    currentPassword: z.string().min(1),
+    newPassword: z.string().min(8),
 }).strict();
 
 export const bearerTokenSchema = z.string().regex(/^Bearer\s+\S+$/);

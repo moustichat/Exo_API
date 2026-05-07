@@ -11,18 +11,18 @@ return crypto.createHash('sha256').update(rawToken).digest('hex');
 }
 
 export const authService = {
-    async register(input: { email: string; password: string }) {
+    async register(input: { email: string; password: string; name: string }) {
         const existing = await prisma.user.findUnique({ where: { email: input.email } });
 
         if (existing) throw new HttpError(409, 'Email already used');
         const passwordHash = await bcrypt.hash(input.password, 10);
         const user = await prisma.user.create({
             data: {
-                name: "New User",
+                name: input.name,
                 email: input.email,
                 passwordHash,
             },
-            select: { id: true, email: true, role: true },
+            select: { id: true, email: true, name: true, role: true },
         });
         return user;
     },
@@ -47,9 +47,73 @@ export const authService = {
         });
 
         return {
-            user: { id: user.id, email: user.email, role: user.role },
+            user: { id: user.id, email: user.email, name: user.name, role: user.role },
             tokens: { accessToken, refreshToken },
             };
+    },
+
+    async getCurrentUser(userId: string) {
+        const user = await prisma.user.findUnique({
+            where: { id: userId },
+            select: { id: true, email: true, name: true, role: true },
+        });
+
+        if (!user) {
+            throw new HttpError(404, 'User not found');
+        }
+
+        return user;
+    },
+
+    async updateProfile(userId: string, input: { name?: string; email?: string }) {
+        const currentUser = await prisma.user.findUnique({
+            where: { id: userId },
+        });
+
+        if (!currentUser) {
+            throw new HttpError(404, 'User not found');
+        }
+
+        if (input.email && input.email !== currentUser.email) {
+            const duplicate = await prisma.user.findUnique({ where: { email: input.email } });
+            if (duplicate) {
+                throw new HttpError(409, 'Email already used');
+            }
+        }
+
+        const updatedUser = await prisma.user.update({
+            where: { id: userId },
+            data: {
+                ...(input.name ? { name: input.name } : {}),
+                ...(input.email ? { email: input.email } : {}),
+            },
+            select: { id: true, email: true, name: true, role: true },
+        });
+
+        return updatedUser;
+    },
+
+    async updatePassword(userId: string, input: { currentPassword: string; newPassword: string }) {
+        const currentUser = await prisma.user.findUnique({
+            where: { id: userId },
+        });
+
+        if (!currentUser) {
+            throw new HttpError(404, 'User not found');
+        }
+
+        const ok = await bcrypt.compare(input.currentPassword, currentUser.passwordHash);
+        if (!ok) {
+            throw new HttpError(401, 'Invalid credentials');
+        }
+
+        const passwordHash = await bcrypt.hash(input.newPassword, 10);
+        await prisma.user.update({
+            where: { id: userId },
+            data: { passwordHash },
+        });
+
+        return true;
     },
 
     async refresh(refreshToken: string) {

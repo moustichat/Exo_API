@@ -37,7 +37,8 @@ jest.mock('../../src/utils/jwt', () => ({
   signRefreshToken: jest.fn(),
 }))
 
-const app = require('../../src/app')
+const appModule = require('../../src/app')
+const app = appModule.default ?? appModule
 
 describe('Events endpoints', () => {
   test('GET /api/v1/events returns list', async () => {

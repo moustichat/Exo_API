@@ -1,6 +1,7 @@
 import type { ErrorRequestHandler, RequestHandler } from "express";
 import * as z from "zod";
 import { HttpError } from "../utils/http-error";
+import { logger } from "../lib/logger";
 
 export const notFoundHandler: RequestHandler = (_req, res) => {
     res.status(404).json({
@@ -45,10 +46,12 @@ export const errorHandler: ErrorRequestHandler = (error, _req, res, _next) => {
         return;
     }
 
+    logger.error('Unhandled error:', { error: String(error), stack: error instanceof Error ? error.stack : undefined });
     res.status(500).json({
         success: false,
         error: {
-            message: "Internal server error",
+            message: error instanceof Error ? error.message : String(error),
+            stack: error instanceof Error ? error.stack : undefined,
         },
     });
 };

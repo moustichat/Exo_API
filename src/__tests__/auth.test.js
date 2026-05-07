@@ -12,7 +12,8 @@ jest.mock('../../src/services/auth.service', () => ({
   authService: authServiceMock,
 }))
 
-const app = require('../../src/app')
+const appModule = require('../../src/app')
+const app = appModule.default ?? appModule
 
 describe('Auth endpoints', () => {
   beforeEach(() => {
@@ -25,9 +26,9 @@ describe('Auth endpoints', () => {
   })
 
   test('POST /api/v1/auth/register returns 201 and sets cookies', async () => {
-    const payload = { email: 'test@example.com', password: 'password123' }
+    const payload = { email: 'test@example.com', password: 'password123', name: 'Test User' }
     const loginResult = {
-      user: { id: 'u1', email: payload.email, role: 'USER' },
+      user: { id: 'u1', email: payload.email, name: payload.name, role: 'USER' },
       tokens: { accessToken: 'access-token', refreshToken: 'refresh-token' },
     }
 
@@ -53,7 +54,7 @@ describe('Auth endpoints', () => {
   test('POST /api/v1/auth/login returns 200 and sets cookies', async () => {
     const payload = { email: 'user@example.com', password: 'password123' }
     authServiceMock.login.mockResolvedValue({
-      user: { id: 'u2', email: payload.email, role: 'USER' },
+      user: { id: 'u2', email: payload.email, name: 'User Demo', role: 'USER' },
       tokens: { accessToken: 'access-token-2', refreshToken: 'refresh-token-2' },
     })
 
