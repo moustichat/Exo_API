@@ -8,10 +8,7 @@ function getTicketTotalPrice(price: number, quantity: number) {
 
 export const ticketService = {
     async purchaseTicket(input: { userId: string; eventId: string; quantity: number }) {
-        console.log('[TICKET] Attempting purchase:', input);
-        
-        const ticket = await prisma.$transaction(async (tx) => {
-            console.log('[TICKET] Finding event:', input.eventId);
+        const result = await prisma.$transaction(async (tx) => {
             const event = await tx.event.findUnique({
                 where: { id: input.eventId },
             });
@@ -19,8 +16,17 @@ export const ticketService = {
             if (!event) {
                 throw new HttpError(404, 'Event not found');
             }
-            
-            console.log('[TICKET] Event found:', event.id);
+
+            if (event.seats_available < input.quantity) {
+                throw new HttpError(409, 'Not enough seats available');
+            }
+
+            await tx.event.update({
+                where: { id: input.eventId },
+                data: {
+                    seats_available: event.seats_available - input.quantity,
+                },
+            });
 
             const existingTicket = await tx.ticket.findFirst({
                 where: {
@@ -30,23 +36,24 @@ export const ticketService = {
             });
 
             if (existingTicket) {
-                throw new HttpError(409, 'You already bought a ticket for this event');
+                // Update existing ticket: add quantity and update total price
+                const updatedTicket = await tx.ticket.update({
+                    where: { id: existingTicket.id },
+                    data: {
+                        quantity: existingTicket.quantity + input.quantity,
+                        totalPrice: getTicketTotalPrice(event.price, existingTicket.quantity + input.quantity),
+                    },
+                    include: {
+                        event: true,
+                    },
+                });
+                return {
+                    ticket: updatedTicket,
+                    purchasedQuantity: input.quantity,
+                };
             }
 
-            if (event.seats_available < input.quantity) {
-                throw new HttpError(409, 'Not enough seats available');
-            }
-
-            console.log('[TICKET] Updating event seats...');
-            await tx.event.update({
-                where: { id: input.eventId },
-                data: {
-                    seats_available: event.seats_available - input.quantity,
-                },
-            });
-
-            console.log('[TICKET] Creating ticket record...');
-            return tx.ticket.create({
+            const newTicket = await tx.ticket.create({
                 data: {
                     qrCode: crypto.randomUUID(),
                     status: 'VALID',
@@ -59,10 +66,17 @@ export const ticketService = {
                     event: true,
                 },
             });
+            return {
+                ticket: newTicket,
+                purchasedQuantity: input.quantity,
+            };
         });
 
-        console.log('[TICKET] Purchase successful:', ticket.id);
-        return ticket;
+        // Return ticket with purchasedQuantity field for frontend
+        return {
+            ...result.ticket,
+            purchasedQuantity: result.purchasedQuantity,
+        };
     },
 
     async getMyTickets(userId: string) {

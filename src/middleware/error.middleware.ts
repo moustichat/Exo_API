@@ -50,8 +50,7 @@ export const errorHandler: ErrorRequestHandler = (error, _req, res, _next) => {
     res.status(500).json({
         success: false,
         error: {
-            message: error instanceof Error ? error.message : String(error),
-            stack: error instanceof Error ? error.stack : undefined,
+            message: "Internal server error",
         },
     });
 };

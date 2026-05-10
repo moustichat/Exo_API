@@ -32,6 +32,13 @@ router.post('/login', validateBody(authLoginSchema), async (req, res) => {
     res.json({ success: true, data: { user: result.user } });
 });
 
+router.post('/become-organizer', authMiddleware, async (req: AuthenticatedRequest, res) => {
+    const result = await authService.becomeOrganizer(req.user!.userId);
+    res.cookie('accessToken', result.tokens.accessToken, { ...cookieOptions, maxAge: 15 * 60 * 1000 });
+    res.cookie('refreshToken', result.tokens.refreshToken, cookieOptions);
+    res.json({ success: true, data: { user: result.user } });
+});
+
 router.post('/refresh', async (req, res) => {
     const refreshToken = req.cookies.refreshToken;
     if (!refreshToken) throw new HttpError(401, 'No refresh token provided');

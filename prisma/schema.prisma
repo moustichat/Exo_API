@@ -52,11 +52,11 @@ model User {
 model Ticket {
     id Int @id @default(autoincrement())
     qrCode String @unique
-  status TicketStatus @default(VALID)
+    status TicketStatus @default(VALID)
     userId String
     eventId String
-  quantity Int @default(1)
-  totalPrice Int @default(0)
+    quantity Int @default(1)
+    totalPrice Int @default(0)
     purchaseDate DateTime @default(now())
     
     user User @relation("UserTickets", fields: [userId], references: [id])

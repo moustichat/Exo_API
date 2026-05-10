@@ -13,7 +13,6 @@ const eventBaseShape = {
     total_seats: z.coerce.number().int().nonnegative(),
     seats_available: z.coerce.number().int().nonnegative(),
     category: z.enum(categoryValues),
-    organizerId: z.cuid(),
     picture: z.coerce.number().int().nonnegative().nullable(),
 } as const;
 

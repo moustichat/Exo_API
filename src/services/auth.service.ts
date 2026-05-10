@@ -5,9 +5,37 @@ import { signAccessToken, signRefreshToken, verifyRefreshToken } from "../utils/
 import { jwtPayloadSchema } from "../verif";
 import { HttpError } from "../utils/http-error";
 
+type SessionUser = {
+    id: string;
+    email: string;
+    name: string;
+    role: 'USER' | 'ORGANIZER' | 'ADMIN';
+};
+
 
 function hashToken(rawToken: string) {
 return crypto.createHash('sha256').update(rawToken).digest('hex');
+}
+
+function buildSession(user: SessionUser) {
+    const payload = { userId: user.id, role: user.role };
+    const accessToken = signAccessToken(payload);
+    const refreshToken = signRefreshToken(payload);
+
+    return {
+        user,
+        tokens: { accessToken, refreshToken },
+    };
+}
+
+async function storeRefreshToken(userId: string, refreshToken: string) {
+    await prisma.refreshToken.create({
+        data: {
+            tokenHash: hashToken(refreshToken),
+            userId,
+            expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+        },
+    });
 }
 
 export const authService = {
@@ -34,22 +62,47 @@ export const authService = {
         const ok = await bcrypt.compare(input.password, user.passwordHash);
         if (!ok) throw new HttpError(401, 'Invalid credentials');
 
-        const payload = { userId: user.id, role: user.role };
-        const accessToken = signAccessToken(payload);
-        const refreshToken = signRefreshToken(payload);
-        
-        await prisma.refreshToken.create({
-            data: {
-                tokenHash: hashToken(refreshToken),
-                userId: user.id,
-                expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),  // 7 days
-            },
+        const session = buildSession({
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            role: user.role,
         });
 
+        await storeRefreshToken(user.id, session.tokens.refreshToken);
+
         return {
-            user: { id: user.id, email: user.email, name: user.name, role: user.role },
-            tokens: { accessToken, refreshToken },
-            };
+            user: session.user,
+            tokens: session.tokens,
+        };
+    },
+
+    async becomeOrganizer(userId: string) {
+        const currentUser = await prisma.user.findUnique({
+            where: { id: userId },
+            select: { id: true, email: true, name: true, role: true },
+        });
+
+        if (!currentUser) {
+            throw new HttpError(404, 'User not found');
+        }
+
+        const nextRole = currentUser.role === 'ADMIN' ? currentUser.role : 'ORGANIZER';
+        const updatedUser = await prisma.user.update({
+            where: { id: userId },
+            data: { role: nextRole },
+            select: { id: true, email: true, name: true, role: true },
+        });
+
+        await prisma.refreshToken.updateMany({
+            where: { userId, revokedAt: null },
+            data: { revokedAt: new Date() },
+        });
+
+        const session = buildSession(updatedUser);
+        await storeRefreshToken(updatedUser.id, session.tokens.refreshToken);
+
+        return session;
     },
 
     async getCurrentUser(userId: string) {

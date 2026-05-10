@@ -10,10 +10,6 @@ router.use(authMiddleware);
 
 router.post('/', validateBody(ticketPurchaseSchema), async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
     try {
-        console.log('[ROUTE] POST /tickets received');
-        console.log('[ROUTE] User:', req.user);
-        console.log('[ROUTE] Body:', req.body);
-        
         const { eventId, quantity } = req.body as { eventId: string; quantity: number };
 
         const ticket = await ticketService.purchaseTicket({
@@ -29,7 +25,6 @@ router.post('/', validateBody(ticketPurchaseSchema), async (req: AuthenticatedRe
             },
         });
     } catch (error) {
-        console.log('[ROUTE] Error caught:', error);
         next(error);
     }
 });

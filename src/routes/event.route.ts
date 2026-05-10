@@ -6,7 +6,7 @@ import {
     eventUpdateSchema,
 } from "../verif";
 import { validateBody, validateParams } from "../middleware/validate.middleware";
-import { authMiddleware, requireRoles } from "../middleware/auth.middleware";
+import { authMiddleware, requireRoles, type AuthenticatedRequest } from "../middleware/auth.middleware";
 
 
 const router = Router();
@@ -15,7 +15,13 @@ const router = Router();
 
 // GET /api/events
 router.get('/', async (req: Request, res: Response) => {
-    res.status(200).json(await prisma.event.findMany());
+    const events = await prisma.event.findMany();
+    res.status(200).json({
+        success: true,
+        data: {
+            events,
+        },
+    });
 });
 
 
@@ -26,20 +32,33 @@ router.get('/', async (req: Request, res: Response) => {
 router.get('/:id', validateParams(eventIdParamsSchema), async (req: Request, res: Response) => {
     const { id } = req.params as { id: string };
     const event = await prisma.event.findUniqueOrThrow({ where: { id } });
-    res.status(200).json(event);
+    res.status(200).json({
+        success: true,
+        data: {
+            event,
+        },
+    });
 });
 
 
 
 // POST /api/events
-router.post('/', authMiddleware, requireRoles('ORGANIZER', 'ADMIN'), validateBody(eventCreateSchema), async (req: Request, res: Response) => {
+router.post('/', authMiddleware, requireRoles('ORGANIZER', 'ADMIN'), validateBody(eventCreateSchema), async (req: AuthenticatedRequest, res: Response) => {
     const event = await prisma.event.create({
-        data: req.body
+        data: {
+            ...req.body,
+            organizerId: req.user!.userId,
+        }
     });
 
     console.log("Created event:", event);
 
-    res.status(201).json({message: 'success', event: event});
+    res.status(201).json({
+        success: true,
+        data: {
+            event,
+        },
+    });
 });
 
 
@@ -53,8 +72,12 @@ router.patch('/:id', authMiddleware, requireRoles('ORGANIZER', 'ADMIN'), validat
     })
 
     console.log('Event updaté:' , event)
-    res.status(200).json({ message: 'Event mis à jour avec succès', event });
-
+    res.status(200).json({
+        success: true,
+        data: {
+            event,
+        },
+    });
 });
 
 
@@ -64,7 +87,12 @@ router.delete('/:id', authMiddleware, requireRoles('ORGANIZER', 'ADMIN'), valida
     const { id } = req.params as { id: string };
     const event = await prisma.event.delete({ where: { id } })
     console.log("Deleted event:", event);
-    res.status(200).json(`Deleted event: ${event.title} (id: ${event.id})`);
+    res.status(200).json({
+        success: true,
+        data: {
+            event,
+        },
+    });
 });
 
 export default router;

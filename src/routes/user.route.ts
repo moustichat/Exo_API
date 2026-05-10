@@ -20,7 +20,10 @@ router.get('/tickets', async (req: AuthenticatedRequest, res: Response) => {
         orderBy: { purchaseDate: 'desc' },
     });
 
-    res.status(200).json(tickets);
+    res.status(200).json({
+        success: true,
+        data: { tickets },
+    });
 });
 
 router.get('/:id', validateParams(userIdParamsSchema), requireSelfOrRoles('ADMIN'), async (req: AuthenticatedRequest, res: Response) => {
