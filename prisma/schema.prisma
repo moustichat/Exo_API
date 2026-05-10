@@ -29,6 +29,7 @@ model Event {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     picture Int?
+    isDeleted Boolean @default(false)
     
     tickets Ticket[] @relation("EventTickets")
     organizer User @relation("UserEvents", fields: [organizerId], references: [id])

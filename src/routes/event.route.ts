@@ -13,9 +13,28 @@ const router = Router();
 
 
 
-// GET /api/events
+// GET /api/events - retourne uniquement les événements non supprimés (pour la recherche publique)
 router.get('/', async (req: Request, res: Response) => {
-    const events = await prisma.event.findMany();
+    const events = await prisma.event.findMany({
+        where: { isDeleted: false }
+    });
+    res.status(200).json({
+        success: true,
+        data: {
+            events,
+        },
+    });
+});
+
+
+
+
+
+// GET /api/events/my-events - retourne les événements de l'organisateur connecté, incluant les supprimés
+router.get('/my-events', authMiddleware, async (req: AuthenticatedRequest, res: Response) => {
+    const events = await prisma.event.findMany({
+        where: { organizerId: req.user!.userId }
+    });
     res.status(200).json({
         success: true,
         data: {
@@ -82,11 +101,30 @@ router.patch('/:id', authMiddleware, requireRoles('ORGANIZER', 'ADMIN'), validat
 
 
     
-// DELETE /api/events/:id
+// DELETE /api/events/:id - soft delete (marque comme supprimé)
 router.delete('/:id', authMiddleware, requireRoles('ORGANIZER', 'ADMIN'), validateParams(eventIdParamsSchema), async (req: Request, res: Response) => {
     const { id } = req.params as { id: string };
-    const event = await prisma.event.delete({ where: { id } })
-    console.log("Deleted event:", event);
+    const event = await prisma.event.update({
+        where: { id },
+        data: { isDeleted: true }
+    });
+    console.log("Soft deleted event:", event);
+    res.status(200).json({
+        success: true,
+        data: {
+            event,
+        },
+    });
+});
+
+// POST /api/events/:id/restore - restaure un événement supprimé
+router.post('/:id/restore', authMiddleware, requireRoles('ORGANIZER', 'ADMIN'), validateParams(eventIdParamsSchema), async (req: Request, res: Response) => {
+    const { id } = req.params as { id: string };
+    const event = await prisma.event.update({
+        where: { id },
+        data: { isDeleted: false }
+    });
+    console.log("Restored event:", event);
     res.status(200).json({
         success: true,
         data: {
