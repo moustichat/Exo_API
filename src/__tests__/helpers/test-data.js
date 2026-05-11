@@ -16,7 +16,6 @@ function makeEventPayload(overrides = {}) {
     total_seats: 100,
     seats_available: 100,
     category: 'Concert',
-    organizerId: cuid(),
     picture: null,
     ...overrides,
   }

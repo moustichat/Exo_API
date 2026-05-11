@@ -22,6 +22,8 @@ const prismaMock = {
     findFirst: jest.fn(),
     create: jest.fn(),
     findMany: jest.fn().mockResolvedValue([]),
+    update: jest.fn(),
+    delete: jest.fn(),
   },
   refreshToken: {
     create: jest.fn(),
@@ -84,7 +86,6 @@ describe('Tickets endpoints', () => {
       price: 20,
       seats_available: 1,
     })
-    prismaMock.ticket.findFirst.mockResolvedValueOnce(null)
 
     const res = await request(app)
       .post('/api/v1/tickets')
@@ -100,14 +101,34 @@ describe('Tickets endpoints', () => {
       price: 20,
       seats_available: 10,
     })
-    prismaMock.ticket.findFirst.mockResolvedValueOnce({ id: 1, eventId, userId: purchaserId })
+    prismaMock.ticket.findFirst.mockResolvedValueOnce({
+      id: 1,
+      eventId,
+      userId: purchaserId,
+      quantity: 2,
+      totalPrice: 40,
+    })
+    prismaMock.event.update.mockResolvedValueOnce({ id: eventId, seats_available: 8 })
+    prismaMock.ticket.update.mockResolvedValueOnce({
+      id: 1,
+      qrCode: 'qr-1',
+      status: 'VALID',
+      userId: purchaserId,
+      eventId,
+      quantity: 4,
+      totalPrice: 80,
+      event: { id: eventId, price: 20, seats_available: 8 },
+    })
 
     const res = await request(app)
       .post('/api/v1/tickets')
       .set(makeAuthHeader('user-token'))
       .send({ eventId, quantity: 2 })
 
-    expect(res.statusCode).toBe(409)
+    expect(res.statusCode).toBe(201)
+    expect(res.body.success).toBe(true)
+    expect(res.body.data.ticket.quantity).toBe(4)
+    expect(res.body.data.ticket.purchasedQuantity).toBe(2)
   })
 
   test('POST /api/v1/tickets returns 201, decrements seats and creates the ticket', async () => {
@@ -136,11 +157,55 @@ describe('Tickets endpoints', () => {
     expect(res.statusCode).toBe(201)
     expect(res.body.success).toBe(true)
     expect(res.body.data.ticket.quantity).toBe(3)
+    expect(res.body.data.ticket.purchasedQuantity).toBe(3)
     expect(prismaMock.event.update).toHaveBeenCalledWith({
       where: { id: eventId },
       data: { seats_available: 7 },
     })
     expect(prismaMock.ticket.create).toHaveBeenCalled()
+  })
+
+  test('DELETE /api/v1/tickets/:id returns 200 and restores seats when removing part of a ticket', async () => {
+    prismaMock.ticket.findFirst.mockResolvedValueOnce({
+      id: 1,
+      qrCode: 'qr-1',
+      status: 'VALID',
+      userId: purchaserId,
+      eventId,
+      quantity: 4,
+      totalPrice: 80,
+      event: { id: eventId, price: 20, seats_available: 6, total_seats: 10 },
+    })
+    prismaMock.event.findUnique.mockResolvedValueOnce({
+      id: eventId,
+      price: 20,
+      seats_available: 6,
+      total_seats: 10,
+    })
+    prismaMock.event.update.mockResolvedValueOnce({ id: eventId, seats_available: 8 })
+    prismaMock.ticket.update.mockResolvedValueOnce({
+      id: 1,
+      qrCode: 'qr-1',
+      status: 'VALID',
+      userId: purchaserId,
+      eventId,
+      quantity: 2,
+      totalPrice: 40,
+      event: { id: eventId, price: 20, seats_available: 8 },
+    })
+
+    const res = await request(app)
+      .delete('/api/v1/tickets/1')
+      .set(makeAuthHeader('user-token'))
+      .send({ quantity: 2 })
+
+    expect(res.statusCode).toBe(200)
+    expect(res.body.success).toBe(true)
+    expect(res.body.data.removedQuantity).toBe(2)
+    expect(prismaMock.event.update).toHaveBeenCalledWith({
+      where: { id: eventId },
+      data: { seats_available: 8 },
+    })
   })
 
   test('GET /api/v1/users/tickets returns authenticated user tickets', async () => {
@@ -160,7 +225,8 @@ describe('Tickets endpoints', () => {
       .set(makeAuthHeader('user-token'))
 
     expect(res.statusCode).toBe(200)
-    expect(Array.isArray(res.body)).toBe(true)
+    expect(res.body.success).toBe(true)
+    expect(Array.isArray(res.body.data.tickets)).toBe(true)
     expect(prismaMock.ticket.findMany).toHaveBeenCalledWith({
       where: { userId: purchaserId },
       include: { event: true },

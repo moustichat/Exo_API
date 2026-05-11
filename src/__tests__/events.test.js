@@ -14,11 +14,19 @@ const prismaMock = {
     findUnique: jest.fn().mockResolvedValue(null),
     delete: jest.fn().mockResolvedValue(null),
   },
+  ticket: {
+    findFirst: jest.fn(),
+    create: jest.fn(),
+    findMany: jest.fn(),
+    update: jest.fn(),
+    delete: jest.fn(),
+  },
   refreshToken: {
     create: jest.fn(),
     findUnique: jest.fn(),
     updateMany: jest.fn(),
   },
+  $transaction: jest.fn(),
 }
 
 jest.mock('../../src/lib/prisma', () => ({ prisma: prismaMock }))
@@ -44,15 +52,17 @@ describe('Events endpoints', () => {
   test('GET /api/v1/events returns list', async () => {
     const res = await request(app).get('/api/v1/events')
     expect(res.statusCode).toBe(200)
-    expect(Array.isArray(res.body)).toBe(true)
-    expect(res.body.length).toBeGreaterThan(0)
+    expect(res.body.success).toBe(true)
+    expect(Array.isArray(res.body.data.events)).toBe(true)
+    expect(res.body.data.events.length).toBeGreaterThan(0)
   })
 
   test('GET /api/v1/events/:id returns single event', async () => {
     const id = cuid()
     const res = await request(app).get(`/api/v1/events/${id}`)
     expect(res.statusCode).toBe(200)
-    expect(res.body.id).toBe(id)
+    expect(res.body.success).toBe(true)
+    expect(res.body.data.event.id).toBe(id)
   })
 
   test('GET /api/v1/events/:id returns 400 for invalid id', async () => {
@@ -89,7 +99,8 @@ describe('Events endpoints', () => {
       .send(payload)
 
     expect(res.statusCode).toBe(201)
-    expect(res.body.message).toBe('success')
+    expect(res.body.success).toBe(true)
+    expect(res.body.data.event).toBeDefined()
     expect(prismaMock.event.create).toHaveBeenCalled()
   })
 
@@ -135,7 +146,8 @@ describe('Events endpoints', () => {
       .send({ title: 'Updated Event' })
 
     expect(res.statusCode).toBe(200)
-    expect(res.body.message).toMatch(/mis à jour/i)
+    expect(res.body.success).toBe(true)
+    expect(res.body.data.event.title).toBe('Updated Event')
   })
 
   test('DELETE /api/v1/events/:id returns 401 without token', async () => {
@@ -158,6 +170,7 @@ describe('Events endpoints', () => {
       .delete(`/api/v1/events/${id}`)
       .set(makeAuthHeader('organizer-token'))
     expect(res.statusCode).toBe(200)
-    expect(res.text).toMatch(/Deleted event/i)
+    expect(res.body.success).toBe(true)
+    expect(res.body.data.event.isDeleted).toBe(true)
   })
 })

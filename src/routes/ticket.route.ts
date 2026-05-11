@@ -3,6 +3,7 @@ import { authMiddleware, type AuthenticatedRequest } from '../middleware/auth.mi
 import { validateBody, validateParams } from '../middleware/validate.middleware';
 import { ticketDeleteSchema, ticketIdParamsSchema, ticketPurchaseSchema } from '../verif';
 import { ticketService } from '../services/ticket.service';
+import { logger } from '../lib/logger';
 
 const router = Router();
 
@@ -13,6 +14,12 @@ router.post('/', validateBody(ticketPurchaseSchema), async (req: AuthenticatedRe
         const { eventId, quantity } = req.body as { eventId: string; quantity: number };
 
         const ticket = await ticketService.purchaseTicket({
+            userId: req.user!.userId,
+            eventId,
+            quantity,
+        });
+
+        logger.info('Ticket purchased', {
             userId: req.user!.userId,
             eventId,
             quantity,
@@ -53,6 +60,12 @@ router.delete('/:id', validateParams(ticketIdParamsSchema), validateBody(ticketD
             userId: req.user!.userId,
             ticketId: Number(id),
             quantity,
+        });
+
+        logger.info('Ticket quantity removed', {
+            userId: req.user!.userId,
+            ticketId: Number(id),
+            removedQuantity: result.removedQuantity,
         });
 
         res.status(200).json({

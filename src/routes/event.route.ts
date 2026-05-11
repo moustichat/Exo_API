@@ -1,5 +1,6 @@
 import { Router, type Request, type Response } from "express";
 import { prisma } from "./../lib/prisma";
+import { logger } from "../lib/logger";
 import {
     eventCreateSchema,
     eventIdParamsSchema,
@@ -90,7 +91,7 @@ router.post('/', authMiddleware, requireRoles('ORGANIZER', 'ADMIN'), validateBod
         }
     });
 
-    console.log("Created event:", event);
+    logger.info('Event created', { eventId: event.id, organizerId: event.organizerId });
 
     res.status(201).json({
         success: true,
@@ -110,7 +111,7 @@ router.patch('/:id', authMiddleware, requireRoles('ORGANIZER', 'ADMIN'), validat
         data: req.body
     })
 
-    console.log('Event updaté:' , event)
+    logger.info('Event updated', { eventId: event.id });
     res.status(200).json({
         success: true,
         data: {
@@ -128,7 +129,7 @@ router.delete('/:id', authMiddleware, requireRoles('ORGANIZER', 'ADMIN'), valida
         where: { id },
         data: { isDeleted: true }
     });
-    console.log("Soft deleted event:", event);
+    logger.info('Event soft deleted', { eventId: event.id });
     res.status(200).json({
         success: true,
         data: {
@@ -144,7 +145,7 @@ router.post('/:id/restore', authMiddleware, requireRoles('ORGANIZER', 'ADMIN'), 
         where: { id },
         data: { isDeleted: false }
     });
-    console.log("Restored event:", event);
+    logger.info('Event restored', { eventId: event.id });
     res.status(200).json({
         success: true,
         data: {
