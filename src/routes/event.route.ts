@@ -33,7 +33,27 @@ router.get('/', async (req: Request, res: Response) => {
 // GET /api/events/my-events - retourne les événements de l'organisateur connecté, incluant les supprimés
 router.get('/my-events', authMiddleware, async (req: AuthenticatedRequest, res: Response) => {
     const events = await prisma.event.findMany({
-        where: { organizerId: req.user!.userId }
+        where: { organizerId: req.user!.userId },
+        include: {
+            tickets: {
+                include: {
+                    user: {
+                        select: {
+                            id: true,
+                            name: true,
+                            email: true,
+                            role: true,
+                        },
+                    },
+                },
+                orderBy: {
+                    purchaseDate: 'desc',
+                },
+            },
+        },
+        orderBy: {
+            date: 'asc',
+        },
     });
     res.status(200).json({
         success: true,

@@ -90,4 +90,79 @@ export const ticketService = {
             },
         });
     },
+
+    async removeTicketQuantity(input: { userId: string; ticketId: number; quantity: number }) {
+        return prisma.$transaction(async (tx) => {
+            const ticket = await tx.ticket.findFirst({
+                where: {
+                    id: input.ticketId,
+                    userId: input.userId,
+                },
+                include: {
+                    event: true,
+                },
+            });
+
+            if (!ticket) {
+                throw new HttpError(404, 'Ticket not found');
+            }
+
+            if (input.quantity > ticket.quantity) {
+                throw new HttpError(409, 'Cannot remove more tickets than owned');
+            }
+
+            const event = await tx.event.findUnique({
+                where: { id: ticket.eventId },
+            });
+
+            if (!event) {
+                throw new HttpError(404, 'Event not found');
+            }
+
+            const seatsAvailable = Math.min(event.total_seats, event.seats_available + input.quantity);
+
+            await tx.event.update({
+                where: { id: ticket.eventId },
+                data: {
+                    seats_available: seatsAvailable,
+                },
+            });
+
+            if (input.quantity === ticket.quantity) {
+                await tx.ticket.delete({
+                    where: { id: ticket.id },
+                });
+
+                return {
+                    removedQuantity: input.quantity,
+                    remainingTicket: null,
+                    event: {
+                        ...event,
+                        seats_available: seatsAvailable,
+                    },
+                };
+            }
+
+            const remainingQuantity = ticket.quantity - input.quantity;
+            const remainingTicket = await tx.ticket.update({
+                where: { id: ticket.id },
+                data: {
+                    quantity: remainingQuantity,
+                    totalPrice: getTicketTotalPrice(event.price, remainingQuantity),
+                },
+                include: {
+                    event: true,
+                },
+            });
+
+            return {
+                removedQuantity: input.quantity,
+                remainingTicket,
+                event: {
+                    ...event,
+                    seats_available: seatsAvailable,
+                },
+            };
+        });
+    },
 };

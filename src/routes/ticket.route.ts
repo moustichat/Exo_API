@@ -1,7 +1,7 @@
 import { Router, type Response, type NextFunction } from 'express';
 import { authMiddleware, type AuthenticatedRequest } from '../middleware/auth.middleware';
-import { validateBody } from '../middleware/validate.middleware';
-import { ticketPurchaseSchema } from '../verif';
+import { validateBody, validateParams } from '../middleware/validate.middleware';
+import { ticketDeleteSchema, ticketIdParamsSchema, ticketPurchaseSchema } from '../verif';
 import { ticketService } from '../services/ticket.service';
 
 const router = Router();
@@ -37,6 +37,28 @@ router.get('/me', async (req: AuthenticatedRequest, res: Response, next: NextFun
             success: true,
             data: {
                 tickets,
+            },
+        });
+    } catch (error) {
+        next(error);
+    }
+});
+
+router.delete('/:id', validateParams(ticketIdParamsSchema), validateBody(ticketDeleteSchema), async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+    try {
+        const { id } = req.params as { id: string };
+        const { quantity } = req.body as { quantity: number };
+
+        const result = await ticketService.removeTicketQuantity({
+            userId: req.user!.userId,
+            ticketId: Number(id),
+            quantity,
+        });
+
+        res.status(200).json({
+            success: true,
+            data: {
+                ...result,
             },
         });
     } catch (error) {

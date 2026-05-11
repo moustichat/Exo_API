@@ -65,6 +65,14 @@ export const ticketPurchaseSchema = z.object({
     quantity: z.coerce.number().int().positive().default(1),
 }).strict();
 
+export const ticketDeleteSchema = z.object({
+    quantity: z.coerce.number().int().positive().default(1),
+}).strict();
+
+export const ticketIdParamsSchema = z.object({
+    id: z.coerce.number().int().positive(),
+}).strict();
+
 export const eventIdParamsSchema = z.object({
     id: schema_id,
 }).strict();
