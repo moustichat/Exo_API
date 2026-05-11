@@ -22,17 +22,17 @@ const server = app.listen(port, () => {
 })
 
 // Capture unhandled errors
-server.on('error', (error: any) => {
+server.on('error', (error: unknown) => {
     logger.error('Server error:', error)
     process.exit(1)
 })
 
-process.on('unhandledRejection', (reason: any) => {
+process.on('unhandledRejection', (reason: unknown) => {
     logger.error('Unhandled rejection:', reason)
     process.exit(1)
 })
 
-process.on('uncaughtException', (error: any) => {
+process.on('uncaughtException', (error: unknown) => {
     logger.error('Uncaught exception:', error)
     process.exit(1)
 })

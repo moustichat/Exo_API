@@ -9,22 +9,21 @@ import {
 import { validateBody, validateParams } from "../middleware/validate.middleware";
 import { authMiddleware, requireRoles, type AuthenticatedRequest } from "../middleware/auth.middleware";
 
-
 const router = Router();
 
-
+function sendSuccess<T>(res: Response, data: T, status = 200) {
+    return res.status(status).json({
+        success: true,
+        data,
+    });
+}
 
 // GET /api/events - retourne uniquement les événements non supprimés (pour la recherche publique)
-router.get('/', async (req: Request, res: Response) => {
+router.get('/', async (_req: Request, res: Response) => {
     const events = await prisma.event.findMany({
         where: { isDeleted: false }
     });
-    res.status(200).json({
-        success: true,
-        data: {
-            events,
-        },
-    });
+    return sendSuccess(res, { events });
 });
 
 
@@ -56,28 +55,16 @@ router.get('/my-events', authMiddleware, async (req: AuthenticatedRequest, res: 
             date: 'asc',
         },
     });
-    res.status(200).json({
-        success: true,
-        data: {
-            events,
-        },
-    });
+    return sendSuccess(res, { events });
 });
 
 
 
-// Get /api/todos/:id
-// :id est un parametre de route 
-// il sera accessible dans l'objet req.params
+// GET /api/events/:id
 router.get('/:id', validateParams(eventIdParamsSchema), async (req: Request, res: Response) => {
     const { id } = req.params as { id: string };
     const event = await prisma.event.findUniqueOrThrow({ where: { id } });
-    res.status(200).json({
-        success: true,
-        data: {
-            event,
-        },
-    });
+    return sendSuccess(res, { event });
 });
 
 
@@ -93,12 +80,7 @@ router.post('/', authMiddleware, requireRoles('ORGANIZER', 'ADMIN'), validateBod
 
     logger.info('Event created', { eventId: event.id, organizerId: event.organizerId });
 
-    res.status(201).json({
-        success: true,
-        data: {
-            event,
-        },
-    });
+    return sendSuccess(res, { event }, 201);
 });
 
 
@@ -112,12 +94,7 @@ router.patch('/:id', authMiddleware, requireRoles('ORGANIZER', 'ADMIN'), validat
     })
 
     logger.info('Event updated', { eventId: event.id });
-    res.status(200).json({
-        success: true,
-        data: {
-            event,
-        },
-    });
+    return sendSuccess(res, { event });
 });
 
 
@@ -130,12 +107,7 @@ router.delete('/:id', authMiddleware, requireRoles('ORGANIZER', 'ADMIN'), valida
         data: { isDeleted: true }
     });
     logger.info('Event soft deleted', { eventId: event.id });
-    res.status(200).json({
-        success: true,
-        data: {
-            event,
-        },
-    });
+    return sendSuccess(res, { event });
 });
 
 // POST /api/events/:id/restore - restaure un événement supprimé
@@ -146,12 +118,7 @@ router.post('/:id/restore', authMiddleware, requireRoles('ORGANIZER', 'ADMIN'), 
         data: { isDeleted: false }
     });
     logger.info('Event restored', { eventId: event.id });
-    res.status(200).json({
-        success: true,
-        data: {
-            event,
-        },
-    });
+    return sendSuccess(res, { event });
 });
 
 export default router;

@@ -3,6 +3,20 @@ import * as z from "zod";
 import { HttpError } from "../utils/http-error";
 import { logger } from "../lib/logger";
 
+type PrismaKnownErrorLike = {
+    code?: string;
+    name?: string;
+};
+
+function isPrismaNotFoundLike(error: unknown): error is PrismaKnownErrorLike {
+    if (typeof error !== 'object' || error === null) {
+        return false;
+    }
+
+    const candidate = error as PrismaKnownErrorLike;
+    return candidate.code === 'P2025' || candidate.name === 'PrismaClientKnownRequestError';
+}
+
 export const notFoundHandler: RequestHandler = (_req, res) => {
     res.status(404).json({
         success: false,
@@ -36,7 +50,7 @@ export const errorHandler: ErrorRequestHandler = (error, _req, res, _next) => {
     }
 
     // Avoid importing Prisma client here to keep tests simple; detect Prisma error by shape.
-    if ((error as any)?.code === "P2025" || (error as any)?.name === 'PrismaClientKnownRequestError') {
+    if (isPrismaNotFoundLike(error)) {
         res.status(404).json({
             success: false,
             error: {

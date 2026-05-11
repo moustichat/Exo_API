@@ -2,6 +2,7 @@ import 'dotenv/config';
 import bcrypt from 'bcryptjs';
 import cuid from 'cuid';
 import { prisma } from '../lib/prisma';
+import { logger } from '../lib/logger';
 
 type SeedEvent = {
   title: string;
@@ -200,7 +201,10 @@ async function main() {
     });
   }
 
-  console.log(`Seeded ${seedEvents.length} test events for ${organizer.email}`);
+  logger.info('Seeded test events', {
+    count: seedEvents.length,
+    organizerEmail: organizer.email,
+  });
 }
 
 main()
