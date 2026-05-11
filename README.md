@@ -1,73 +1,98 @@
 # Exo_API
 
-API légère pour la gestion d'événements, utilisateurs et authentification.
+API légère pour la gestion d'événements, d'utilisateurs et d'authentification.
 
-Description
-- Projet TypeScript/Node.js utilisant Prisma pour la gestion de la base de données.
-- Fournit des endpoints REST pour les utilisateurs, l'authentification et les événements.
+Résumé
+- Projet TypeScript / Node.js
+- ORM : Prisma (migrations dans `prisma/migrations/`)
+- Base de données : configurée via `DATABASE_URL` (par défaut SQLite en développement)
+- Code serveur : dossier `src/`
 
+Prérequis
+- Node.js 18+ (recommandé)
+- npm 8+ (ou yarn/pnpm)
+- Git
 
-Principales fonctionnalités
-- Authentification (login / refresh token)
-- Gestion des utilisateurs
-- Gestion des événements et des tickets
-- Logging et middlewares pour validation et erreurs
+Installation et configuration (sur une nouvelle machine)
+1. Cloner le dépôt et aller dans le dossier backend :
 
-Stack technique
-- Node.js + TypeScript
-- Prisma (ORM) avec migrations dans `prisma/migrations/`
-- Base de données configurée via Prisma (voir `prisma/schema.prisma`)
-- Dossier `src/` pour le code serveur
+```bash
+git clone <repo-url>
+cd Exo_API
+```
 
-Structure du projet (extraits)
-- `src/` : code serveur (routes, services, middlewares, utils)
-- `prisma/` : schéma Prisma et migrations
-- `auto_generated/` : code généré (Prisma client)
-
-Installation
-1. Installer les dépendances :
+2. Installer les dépendances :
 
 ```bash
 npm install
 ```
 
-Base de données et Prisma
-- Créer la base de données et appliquer les migrations :
+3. Copier l'exemple d'environnement et adapter les valeurs :
 
 ```bash
-npx prisma migrate deploy
-# ou en dev
-npx prisma migrate dev
+cp .env.example .env
 ```
 
-- Générer le client Prisma (si nécessaire) :
+Éditez `.env` pour mettre vos secrets : `JWT_ACCESS_SECRET`, `JWT_REFRESH_SECRET`, et `DATABASE_URL`.
+
+Configuration de la base de données (Prisma)
+- Si vous utilisez la configuration par défaut (SQLite), le fichier de base apparaîtra automatiquement.
+- Pour Postgres/MySQL, mettez la bonne `DATABASE_URL` dans `.env`.
+
+Appliquer les migrations et générer le client Prisma (développement) :
 
 ```bash
 npx prisma generate
+npx prisma migrate dev --name init
 ```
 
-Scripts usuels (package.json)
-- `npm run dev` : démarre le serveur en mode développement
-- `npm start` : démarre le serveur en production
-- `npm run prisma` : (si défini) utilitaires Prisma
+En production (appliquer les migrations sans prompt) :
 
-Points d'entrée et routes
-- Serveur : `src/index.ts`
-- Routes principales :
-  - `src/routes/auth.routes.ts` — endpoints d'authentification
-  - `src/routes/user.route.ts` — gestion utilisateurs
-  - `src/routes/event.route.ts` — gestion événements
+```bash
+npx prisma migrate deploy
+```
 
-Middlewares utiles
-- `src/middleware/auth.middleware.ts` — protection des routes
-- `src/middleware/validate.middleware.ts` — validation des entrées
-- `src/middleware/error.middleware.ts` — gestion centralisée des erreurs
+Scripts utiles
+- `npm run dev` : démarre le serveur en mode développement (`tsx src/index.ts`)
+- `npm start` : démarre le serveur en production (lit `dist/index.js`)
+- `npm test` : lance la suite de tests (Jest)
+- `npm run seed:test-events` : lance le script de seed des événements de test
 
-Développement
-- Lancer en dev (exemple avec nodemon/ts-node) :
+Lancer le serveur en développement
 
 ```bash
 npm run dev
 ```
 
-- Pour tester l'API, utiliser Postman
+Tests
+- Lancer les tests unitaires / d'intégration :
+
+```bash
+npm test
+```
+
+Fichier d'exemple d'environnement
+- Voir [Exo_API/.env.example](Exo_API/.env.example) pour les variables requises (PORT, DATABASE_URL, JWT_*, FRONTEND_URL).
+
+Démarrer le frontend (projet séparé)
+1. Ouvrir un nouveau terminal et aller dans le dossier frontend :
+
+```bash
+cd ../Exo_React
+npm install
+npm run dev
+```
+
+2. Par défaut Vite démarre sur `http://localhost:5173`. Assurez-vous que `FRONTEND_URL` dans le backend `.env` contient cette URL pour les CORS/redirections.
+
+Déploiement rapide (notes)
+- Construire le frontend : `npm run build` dans `Exo_React` puis servir les fichiers statiques.
+- En production, configurez une base de données distante et mettez `NODE_ENV=production` et `DATABASE_URL` appropriée.
+
+Dépannage
+- Si Prisma se plaint, exécutez `npx prisma generate` puis `npx prisma migrate dev`.
+- Pour les problèmes de dépendances, supprimez `node_modules` et `package-lock.json` puis `npm install`.
+
+Fichiers importants
+- Entrée serveur : `src/index.ts`
+- Schéma Prisma : `prisma/schema.prisma`
