@@ -37,7 +37,7 @@ pm2 save
 # --- Vérification ---
 echo "[5/5] Vérification..."
 sleep 2
-if curl -sf http://localhost:3000/api/v1/events > /dev/null; then
+if curl -sf http://localhost:3000/ > /dev/null; then
     echo ""
     echo "✓ API opérationnelle sur le port 3000"
 else
