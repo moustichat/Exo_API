@@ -1,0 +1,43 @@
+name: Deploy API
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    name: Test & Deploy API
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v3
+
+      - name: Installation Node.js 20
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Installation des dépendances
+        run: npm install
+
+      - name: Génération du client Prisma
+        run: npx prisma generate
+        env:
+          DATABASE_URL: "file:./test.db"
+
+      - name: Lancement des tests
+        run: npm test
+        env:
+          DATABASE_URL: "file:./test.db"
+          JWT_ACCESS_SECRET: "test_secret_ci_access"
+          JWT_REFRESH_SECRET: "test_secret_ci_refresh"
+          NODE_ENV: "test"
+
+      - name: Déploiement sur le VPS
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: bash /var/www/api/scripts/deploy.sh
