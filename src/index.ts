@@ -11,7 +11,7 @@ const port = process.env.PORT || 3000
  * Sans ça, le navigateur bloque les requêtes cross-origin.
  */
 app.use(cors({
-  origin: process.env.FRONTEND_URL ?? 'http://31.97.177.171',
+  origin: process.env.FRONTEND_URL ?? 'http://localhost:5173',
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
